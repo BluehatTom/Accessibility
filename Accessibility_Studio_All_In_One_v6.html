@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Accessibility Studio — Audit, Repair, Keyboard & Reader Checks</title>
+  <title>Accessibility Studio v6 — Audit, Repair, Keyboard & Reader Checks</title>
   <style>
     :root { color-scheme: light; --red:#c41230; --red-dark:#960f25; --ink:#192333; --muted:#526071; --border:#d7dfe7; --subtle:#f3f6f9; --white:#fff; --blue:#175cd3; --green:#16724b; --focus:#1262bb; --shadow:0 12px 32px rgba(27,43,65,.075); }
     *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;color:var(--ink);background:#f8fafc;font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;line-height:1.5}
@@ -32,6 +32,7 @@
     .finding p{margin:7px 0;font-size:.9rem;color:#36465a}.fix-box{background:#f4f7fa;border-left:3px solid #55718e;padding:10px 12px;border-radius:0 6px 6px 0;margin-top:12px;font-size:.88rem;color:#24384f}.fix-box strong{display:block;margin-bottom:2px;color:#1c334f}
     .finding-meta{display:flex;flex-wrap:wrap;gap:9px 18px;font-size:.77rem;color:#58687b;margin:11px 0 0}.finding details{margin-top:12px;border-top:1px solid #e4e9ef;padding-top:9px}.finding summary{cursor:pointer;font-size:.83rem;font-weight:750;color:#164d88}.example{border-radius:7px;background:#f2f5f8;padding:9px 11px;margin:8px 0}.example code{display:block;white-space:pre-wrap;overflow-wrap:anywhere;color:#274462;font-size:.78rem}.example .selector{font-weight:800;margin-bottom:3px;color:#23364e}.empty{padding:25px;text-align:center;background:#fff;border:1px dashed #bac8d6;border-radius:11px;color:#455b6f}
     .manual-shell{padding:18px}.manual-headline{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:12px}.manual-list{display:grid;grid-template-columns:1fr 1fr;gap:10px}.manual-item{border:1px solid #d8e1e8;border-radius:10px;padding:15px;background:#fff}.manual-item.manual-fail{border-color:#bd6070;background:#fffafb}.manual-item.manual-pass{border-color:#a3d0b7;background:#fafffc}.manual-item h3{font-size:.92rem;margin:6px 0}.manual-item p{font-size:.82rem;margin:4px 0 12px;color:#4b5969}.manual-item select{width:100%;max-width:230px;height:39px;border:1px solid #9eafc3;border-radius:7px;padding:6px 8px;background:#fff;color:#1c2e44}.manual-item label{display:block;font-size:.78rem;font-weight:780;margin-bottom:5px}.manual-progress{font-size:.87rem;color:#38516c;font-weight:700}
+    .scope-disclosure{background:#f4f7fb;border-color:#d5e0ec;color:#344a61}.scope-disclosure summary{cursor:pointer;font-weight:750;color:#254c79}.scope-disclosure p{margin:10px 0 0}
     .footer{margin:32px 0 24px;border-top:1px solid #d9e1e8;padding-top:17px;font-size:.82rem;color:#58677b}.footer p{margin:5px 0}
     @media(max-width:990px){.summary{grid-template-columns:repeat(4,1fr)}.score-card.main{grid-column:1 / -1}.upload-layout{grid-template-columns:1fr}.manual-list{grid-template-columns:1fr 1fr}}
     @media(max-width:680px){.wrap{padding:0 16px}.nav{align-items:flex-start}.nav-note{white-space:normal;text-align:center}.hero{padding:26px 0}.upload-panel{padding:15px}.summary{grid-template-columns:1fr 1fr}.score-card.main{grid-column:1/-1}.manual-list{grid-template-columns:1fr}.finding-content{padding:15px}.toolbar{padding:12px}.field,.field-search{min-width:100%;flex-basis:100%}.report-header{align-items:flex-start}}
@@ -54,8 +55,15 @@
     @media(max-width:680px){.repair-columns{grid-template-columns:1fr}.repair-shell{padding:13px}}
     @media print{#repairSection{display:none!important}}
   
-  .module-nav{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 22px;padding:10px;background:#eaf0f6;border-radius:10px}
-  .module-nav a{display:inline-block;padding:9px 12px;background:white;border:1px solid #d0dae4;border-radius:8px;font-weight:740;font-size:.85rem;text-decoration:none}
+  .workspace-tabs{display:flex;gap:9px;flex-wrap:wrap;margin:0 0 20px;padding:7px;border:1px solid #d1dbe6;background:#eaf0f6;border-radius:12px}
+  .workspace-tab{border:1px solid transparent;background:transparent;color:#263c56;border-radius:8px;font-weight:770;font-size:.92rem;padding:11px 15px;min-height:45px}
+  .workspace-tab[aria-selected="true"]{background:#fff;border-color:#b4c5da;box-shadow:0 2px 6px #23395412;color:#8e0b22}
+  .tab-number{border-radius:99px;padding:1px 7px;background:#e8edf3;color:#24364b;margin-left:4px;font-variant-numeric:tabular-nums}
+  .studio-panel{min-width:0}.repair-details-link{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;border:1px solid #d4e0ec;background:#f6f9fc;padding:11px 13px;border-radius:9px;margin-top:14px;color:#365068;font-size:.88rem}
+  .repair-preview-toggle{cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:760;color:#184f84;margin-bottom:12px}.repair-preview:not([open]){padding-bottom:0}.repair-preview[open]{padding-bottom:5px}
+  .test-limits{margin:8px 0;font-size:.82rem;color:#4a5e72}.test-limits summary{cursor:pointer;color:#235b91;font-weight:720}.test-limits p{margin:8px 0 10px;padding:8px 12px;background:#f5f8fc;border-radius:7px}
+  .guide-compact summary{cursor:pointer;list-style:revert;display:list-item;padding:9px 10px 9px 5px;font-weight:750}.guide-compact summary::marker{color:#405a75}.guide-compact .guide-inner{border-top:1px solid #e1e7f0;padding:9px 10px 4px}
+  @media(max-width:650px){.workspace-tabs{display:grid;grid-template-columns:1fr}.workspace-tab{text-align:left}}
   .labbox{padding:21px;margin-bottom:23px}.labgrid{display:grid;grid-template-columns:1.35fr 1fr;gap:15px;align-items:start}
   .labframe{width:100%;height:480px;background:white;border:1px solid #b8c8d9;border-radius:10px}
   .lab-subhead{margin:10px 0;color:#43566c;font-size:.86rem}
@@ -82,7 +90,7 @@
   .tip-list{padding-left:20px;font-size:.85rem;color:#40546b}
   .sr-preview{background:#fff8ea;border:1px solid #ebd8a8;border-radius:8px;padding:9px;font-size:.82rem}
   @media(max-width:880px){.labgrid,.formgrid,.eq-checks{grid-template-columns:1fr}}
-  @media print{.module-nav,.lab-actions,.labframe,.lab-choice,.lab-event,.voice-script button{display:none!important}.lab-results{max-height:none}}
+  @media print{.workspace-tabs,.lab-actions,.labframe,.lab-choice,.lab-event,.voice-script button{display:none!important}.lab-results{max-height:none}}
 </style>
 </head>
 <body>
@@ -96,7 +104,7 @@
       <div class="upload-info"><h2>What this checker does</h2><ul><li>Checks HTML, ARIA, keyboard clues, forms, embedded CSS contrast, responsive overflow, and touch targets.</li><li>Ranks fixes from <strong>Nice to fix</strong> to <strong>Critical</strong>.</li><li>Provides targeted correction guidance and affected elements.</li><li>Shows which of the 20 manual-review areas were partially screened automatically.</li><li>Preview, approve, and export targeted repairs; find guidance for every other audit issue. Re-audit the patched HTML.</li></ul></div></div>
     <p id="status" class="status" role="status" aria-live="polite">Choose a file to begin.</p>
   </section>
-  <div class="notice"><strong>Scope:</strong> This is a source and safe-render preview checker, not an ADA certification tool. Uploaded JavaScript is disabled during audits; optional interaction testing runs inline scripts only in a separately isolated sandbox. A script-disabled sandbox preview checks embedded styles at two widths; external assets are blocked, so rendered findings are estimates. The screen-reader approximation is not NVDA, JAWS, or VoiceOver, and synthetic keyboard actions are not real Tab-key navigation. External stylesheets, linked documents, full application behavior and WCAG conformance still need real-world testing. All analysis and repairs happen in your browser; your file is not uploaded to a server. Repairs can modify page markup and appearance, so retest the running application.</div>
+  <details class="notice scope-disclosure"><summary>How accurate are these automated checks?</summary><p>Source checks and a script-disabled preview identify potential issues, not ADA certification. The isolated preview blocks external assets and does not reproduce all JavaScript states. The reader walkthrough is not NVDA, JAWS, or VoiceOver; virtual keys are not physical keyboard navigation. Documents, deployed assets and full task behavior require separate verification. Files are processed locally in your browser. Test the corrected running page before claiming WCAG conformance.</p></details>
   <div id="report" hidden>
     <div class="report-header"><div><h2 id="reportTitle">Accessibility audit results</h2><p class="file-line" id="fileMeta"></p></div><div class="actions report-actions"><button class="btn btn-small" id="csvBtn" type="button">Export CSV</button><button class="btn btn-small" id="jsonBtn" type="button">Export JSON</button><button class="btn btn-small" id="printBtn" type="button">Print / PDF</button></div></div>
     <section class="summary" aria-label="Accessibility score and issue severity totals">
@@ -108,23 +116,33 @@
     </section>
     <div class="explain-bar"><strong id="summarySentence"></strong><span> The score is a heuristic based on detectable findings and marked manual failures; uncertain potential findings receive a smaller weighting (40%) until confirmed. Scores are not compliance grades. An absence of findings does not establish legal compliance. Manual checks and testing the actual running website remain necessary.</span></div>
 
-    <nav class="module-nav" aria-label="Jump to a testing module"><a href="#findingsHeading">Findings</a><a href="#repairHeading">Repair Center</a><a href="#labHead">Keyboard and reader lab</a><a href="#eqHead">Accessible alternatives</a><a href="#manualHeading">Manual verification</a></nav>
+    <div class="workspace-tabs" role="tablist" aria-label="Accessibility Studio sections">
+      <button type="button" class="workspace-tab" role="tab" id="tab-workspace" aria-controls="panel-workspace" aria-selected="true" tabindex="0" data-studio-tab="workspace">Test &amp; repair</button>
+      <button type="button" class="workspace-tab" role="tab" id="tab-details" aria-controls="panel-details" aria-selected="false" tabindex="-1" data-studio-tab="details">Findings &amp; details <span id="detailsTabCount" class="tab-number">0</span></button>
+      <button type="button" class="workspace-tab" role="tab" id="tab-review" aria-controls="panel-review" aria-selected="false" tabindex="-1" data-studio-tab="review">Alternatives &amp; review</button>
+    </div>
+    <div id="panel-workspace" class="studio-panel" role="tabpanel" aria-labelledby="tab-workspace" tabindex="0"></div>
+    <div id="panel-details" class="studio-panel" role="tabpanel" aria-labelledby="tab-details" tabindex="0" hidden>
+      <section class="section" aria-labelledby="guidedHeading">
+        <div class="section-heading"><div><h2 id="guidedHeading">Guided correction &amp; verification</h2><p>Open a finding to see its proposed next step. These are not automatically confirmed as resolved.</p></div><span id="guideCount" class="manual-progress"></span></div>
+        <div id="repairGuideList" class="repair-list"></div>
+      </section>
+    </div>
+    <div id="panel-review" class="studio-panel" role="tabpanel" aria-labelledby="tab-review" tabindex="0" hidden></div>
     <section class="section" id="repairSection" aria-labelledby="repairHeading">
       <div class="section-heading"><div><h2 id="repairHeading">Repair Center</h2><p>Select only appropriate corrections. Review changes before downloading or running the next audit.</p></div><span id="repairCount" class="manual-progress" role="status">0 suggestions</span></div>
       <div class="panel repair-shell">
-        <p class="repair-intro">Safe fixes are selected by default; assisted fixes need your approval and often descriptive text. Selected changes affect a <strong>copy</strong>, not the original. A patched document must still be functionally tested.</p>
+        <p class="repair-intro">Choose suggested changes, review their code preview, and re-audit. The original HTML is preserved. Complex repairs need approval.</p>
         <div class="repair-actions"><button type="button" class="btn btn-small" id="selectSafeBtn">Select safe fixes</button><button type="button" class="btn btn-small" id="clearFixesBtn">Clear selections</button><button type="button" class="btn btn-small" id="restoreOriginalBtn">Restore original &amp; re-audit</button></div>
         <p id="repairOverview" class="repair-intro" role="status" aria-live="polite">Run an audit to see repair options and outstanding findings.</p>
         <h3 class="repair-group-title">Editable code repairs</h3>
         <div id="repairList" class="repair-list"></div>
-        <h3 class="repair-group-title">Remaining findings — guided correction and verification</h3>
-        <p class="repair-intro">These findings have no reliable one-click code change. They remain visible until resolved and verified. A proposed code change does not automatically close a finding.</p>
-        <div id="repairGuideList" class="repair-list"></div>
-        <div class="repair-preview"><div class="repair-head"><h3>Code preview</h3><span id="repairPreviewCount" class="manual-progress">No changes selected</span></div>
+        <div class="repair-details-link"><span id="guidedSummary">Findings without proposed code repairs are listed in Details.</span><button class="btn btn-small" type="button" id="openGuidedBtn">View guided corrections</button></div>
+        <details class="repair-preview" id="repairPreviewDisclosure"><summary class="repair-preview-toggle">Show code preview and export <span id="repairPreviewCount" class="manual-progress">No changes selected</span></summary>
           <div class="repair-columns"><div><label for="repairBefore">Current HTML</label><textarea id="repairBefore" readonly spellcheck="false"></textarea></div><div><label for="repairAfter">Patched HTML preview</label><textarea id="repairAfter" readonly spellcheck="false"></textarea></div></div>
           <p id="repairFeedback" class="status" role="status" aria-live="polite">Select a correction to preview the patched HTML.</p><ol id="repairChangeLog" class="repair-log"></ol>
           <div class="repair-actions"><button type="button" id="downloadPatchedBtn" class="btn btn-primary" disabled>Download patched HTML</button><button type="button" id="reauditPatchedBtn" class="btn" disabled>Apply to copy &amp; re-audit</button><button type="button" id="downloadOriginalBtn" class="btn">Download original HTML</button></div>
-        </div>
+        </details>
       </div>
     </section>
 
@@ -132,14 +150,14 @@
       <div class="section-heading"><div><h2 id="labHead">Keyboard and screen-reader testing lab</h2><p>Run automated limited checks against the current HTML and inspect real keyboard interaction in an isolated preview.</p></div><span class="lab-pill" id="labModeTag">Static mode · Scripts disabled</span></div>
       <div class="panel labbox">
         <div class="lab-choice" role="group" aria-label="Application preview mode"><strong>Preview:</strong><label><input type="radio" name="labMode" value="safe" checked> Safer static HTML</label><label><input type="radio" name="labMode" value="dynamic"> Isolated inline scripts (opt-in)</label></div>
-        <p class="sr-preview">Uploaded scripts are disabled by default. Optional dynamic mode runs only inline scripts in an opaque-origin iframe with external network resources blocked. It is intended for your own trusted HTML. Keyboard automation checks focus reachability and structural clues; it cannot prove task completion, native Tab order, focus traps, or action correctness. The voice walkthrough uses your browser's speech synthesis and estimated semantics, <strong>not a real screen reader</strong>.</p>
+        <details class="test-limits"><summary>What the automated tests can and cannot verify</summary><p>Scripts are disabled by default. Optional dynamic mode runs inline scripts in an isolated frame with network resources blocked. Programmatic focus testing cannot prove task completion or absence of focus traps. Speech synthesis approximates accessible names and is <strong>not</strong> NVDA, JAWS, or VoiceOver. Test the real published page before claiming conformance.</p></details>
         <div class="lab-actions"><button type="button" class="btn btn-primary" id="labRunAll">Run both automated checks</button><button type="button" class="btn" id="labRunKeyboard">Run focus sweep</button><button type="button" class="btn" id="labRunReader">Inspect reader semantics</button><button type="button" class="btn" id="labReload">Reload preview</button><button type="button" class="btn" id="labExport">Export lab results JSON</button></div>
         <p id="labRunStatus" class="status" role="status" aria-live="polite">Load a file to run interactive testing.</p>
         <div class="labgrid">
           <div>
             <h3>Application preview</h3><iframe id="labFrame" class="labframe" sandbox="allow-scripts" title="Isolated local HTML interaction preview"></iframe>
             <div class="lab-actions"><button type="button" class="btn btn-small" id="labFirst">Focus first control</button><button type="button" class="btn btn-small" id="labTab">Next Tab stop*</button><button type="button" class="btn btn-small" id="labShiftTab">Previous Tab stop*</button><button type="button" class="btn btn-small" id="labEnter">Enter*</button><button type="button" class="btn btn-small" id="labSpace">Space*</button><button type="button" class="btn btn-small" id="labEscape">Escape*</button><button type="button" class="btn btn-small" id="labRescan">Rescan</button></div>
-            <p class="lab-subhead">*Virtual buttons approximate behavior. To test real keystrokes, focus inside the preview and press Tab, Shift+Tab, Enter, Space, arrows and Escape on a physical keyboard.</p>
+            <details class="test-limits"><summary>Virtual keyboard limitations</summary><p>Virtual keys approximate some behavior. Click inside the preview and use your physical keyboard to test actual Tab, Shift+Tab, Enter, Space, arrow keys, and Escape.</p></details>
             <div id="labFocus" class="lab-status" role="status">Current focus: none</div>
             <h3 style="margin-top:13px">Interaction and announcement log</h3><div id="labEvents" class="lab-event" role="log" aria-label="Keyboard and announcement activity">No activity yet.</div>
           </div>
@@ -206,10 +224,36 @@
 'use strict';
 (() => {
  const $ = id => document.getElementById(id);
+ // Group the existing workspaces into keyboard-operable tabs without cloning any controls.
+ function switchStudioTab(name, focusButton=false){
+  for(const key of ['workspace','details','review']){
+   const selected=key===name, tab=$('tab-'+key), panel=$('panel-'+key);
+   tab.setAttribute('aria-selected',String(selected));tab.tabIndex=selected?0:-1;panel.hidden=!selected;
+  }
+  if(focusButton)$('tab-'+name).focus();
+ }
+ function setupStudioTabs(){
+  $('panel-workspace').append($('repairSection'),$('labSection'));
+  $('panel-details').append(document.querySelector('section[aria-labelledby="findingsHeading"]'));
+  $('panel-review').append($('equivalenceSection'),document.querySelector('section.coverage-box'),document.querySelector('section[aria-labelledby="manualHeading"]'));
+  const tabs=[...document.querySelectorAll('[data-studio-tab]')];
+  for(const [index,tab] of tabs.entries()){
+   tab.addEventListener('click',()=>switchStudioTab(tab.dataset.studioTab));
+   tab.addEventListener('keydown',event=>{
+    let target=-1;if(event.key==='ArrowRight')target=(index+1)%tabs.length;
+    else if(event.key==='ArrowLeft')target=(index+tabs.length-1)%tabs.length;
+    else if(event.key==='Home')target=0;else if(event.key==='End')target=tabs.length-1;
+    if(target<0)return;event.preventDefault();switchStudioTab(tabs[target].dataset.studioTab,true);
+   });
+  }
+  $('openGuidedBtn').addEventListener('click',()=>{switchStudioTab('details');$('guidedHeading').scrollIntoView({block:'start'});});
+  switchStudioTab('workspace');
+ }
+ setupStudioTabs();
  const sevOrder={nice:0,moderate:1,high:2,critical:3};
  const sevLabels={nice:'Nice to fix',moderate:'Moderate',high:'High',critical:'Critical'};
  const severityPoints={nice:2,moderate:5,high:11,critical:22};
- let labFindings=[], currentFile='', originalFileName='', originalSource='', activeSource='', repairCandidates=[], previewPatched='', repairChangeHistory=[], analyzedNodes=0, maxTruncated=false, staticFindings=[], manualStatus={}, fileDetails={}, scanId=0;
+ let visualFixHints=new Map(), labFindings=[], currentFile='', originalFileName='', originalSource='', activeSource='', repairCandidates=[], previewPatched='', repairChangeHistory=[], analyzedNodes=0, maxTruncated=false, staticFindings=[], manualStatus={}, fileDetails={}, scanId=0;
  const manualTests=[
   {id:'complete-keyboard',severity:'critical',category:'Interaction',title:'Complete all tasks using only a keyboard',wcag:'2.1.1, 2.1.2',check:'Use Tab, Shift+Tab, Enter, Space, arrows and Escape to complete every primary task. Check there are no keyboard traps.',fix:'Make all interactions work from a keyboard, use native controls wherever possible, and remove keyboard traps.'},
   {id:'screen-reader',severity:'critical',category:'Code & ARIA',title:'Test the full experience with a screen reader',wcag:'1.3.1, 4.1.2, 4.1.3',check:'Test with NVDA, JAWS, or VoiceOver. Verify logical reading order, control names, changed values and status announcements.',fix:'Correct semantic markup, accessible names and roles, focus management and live region announcements.'},
@@ -458,8 +502,12 @@
    if(!isRendered(el,win))continue;const s=win.getComputedStyle(el);const b=backdrop(el,win);if(b.image)continue;
    const border=rgba(s.borderTopColor);if(!border||Number.parseFloat(s.borderTopWidth)<1||s.borderTopStyle==='none')continue;
    const borderRGB=blend(border,b.color);
-   if(contrastRatio(borderRGB,b.color)<2.98 && contrastRatio(b.color,backdrop(el.parentElement,win).color)<2.98)
+   if(contrastRatio(borderRGB,b.color)<2.98 && contrastRatio(b.color,backdrop(el.parentElement,win).color)<2.98){
+    const dark=[41,57,75],light=[249,250,252];const proposal=contrastRatio(dark,b.color)>=3?dark:light;
+    const hex=proposal.map(v=>v.toString(16).padStart(2,'0')).join('');
+    visualFixHints.set('border:'+repairPath(el),'#'+hex);
     add(map,'control-border-contrast','moderate','Visual & zoom','Form-field boundary may have insufficient contrast','The input edge and adjacent background appear below 3:1 contrast in the safe preview. Other visual cues or state differences may change the outcome.','Check whether the field boundary is visually discernible at 3:1 against adjacent colors and adjust if necessary.','1.4.11',el,'Potential');
+   }
   }
   // WCAG 2.2 target size: do not report isolated small targets, inline prose links or unmodified native radio/checkbox.
   const targetEls=[...root.querySelectorAll('a[href],button,input:not([type="hidden"]),select,textarea,[role="button"],[role="link"],[role="tab"]')].slice(0,500).filter(el=>isRendered(el,win));
@@ -496,6 +544,7 @@
  }
  function probePreview(source){return new Promise(resolve=>{
   if(activeProbeCancel)activeProbeCancel();
+  visualFixHints=new Map();
   const frame=$('probeFrame');probeState={rendered:false,wide:false,narrow:false,error:''};
   if(!frame){resolve([]);return;}
   let completed=false;const finish=result=>{if(completed)return;completed=true;frame.onload=null;clearTimeout(timer);if(activeProbeCancel===cancelProbe)activeProbeCancel=null;frame.srcdoc='';resolve(result);};
@@ -576,11 +625,11 @@
    staticFindings=[...base,...visual];fileDetails.preview=structuredClone(probeState);
    renderManual();renderCoverage();updateSummary();buildRepairCandidates();
    $('status').textContent='Analysis complete: '+staticFindings.length+' automated finding types ('+visual.length+' from rendered screening). Findings marked Potential need manual verification.';
-   $('reportTitle').scrollIntoView({behavior:'smooth',block:'start'});
+   switchStudioTab('workspace');$('reportTitle').scrollIntoView({behavior:'smooth',block:'start'});
  }
  async function handleFile(file){if(!file)return;const lower=file.name.toLowerCase();if(!/\.html?$/.test(lower)){setError('Please choose a file ending in .html or .htm.');return;}if(file.size>8*1024*1024){setError('This file is larger than 8 MB. Export a smaller page or simplify the HTML for analysis.');return;}try{$('status').textContent='Reading and checking '+file.name+'…';const html=await file.text();originalSource=html;originalFileName=file.name;repairChangeHistory=[];eqReset();beginAnalysis(html,file.name,file.size);}catch(e){setError('Unable to analyze the file: '+(e?.message||'unknown error'));}}
  function setError(msg){$('status').classList.add('error');$('status').textContent=msg;}
- function reportData(){return {tool:'Accessibility Studio Unified',version:'5.0',interactionLab:labData(),accessibleAlternatives:{responses:eqData(),assessment:eqEvaluate()},repairHistory:repairChangeHistory,repairPlan:{codeSuggestions:repairCandidates.map(c=>({kind:c.kind,title:c.title,mode:c.mode,selector:c.selector,selected:c.checked,relatedKeys:c.relatedKeys||[]})),guidedFindings:getAllFindings().filter(f=>!repairCandidates.some(c=>(c.relatedKeys||[]).includes(f.key))).map(f=>({key:f.key,severity:f.severity,title:f.title,correction:f.fix}))},standard:'WCAG 2.1 A/AA source checks, embedded-style safe preview, WCAG 2.2 advisory checks and manual review (not certification)',assets:assetInventory,preview:probeState,file:fileDetails,score:scoreFindings(getAllFindings()),sort:'nice → moderate → high → critical',findings:getAllFindings().sort((a,b)=>sevOrder[a.severity]-sevOrder[b.severity]||a.title.localeCompare(b.title)),manualReview:manualTests.map(t=>({...t,status:manualStatus[t.id]||'untested'})),limitations:['Not a WCAG compliance certification','Uploaded scripts are disabled during source audit; optional isolated preview can run inline scripts','External stylesheets are not loaded; optional isolated JavaScript does not reproduce the deployed website','Embedded/linked PDFs and other resources are not inspected','Computed styles are assessed only in script-disabled preview with external resources blocked; full keyboard, screen reader, zoom and rendered-state testing must be performed on the real page']};}
+ function reportData(){return {tool:'Accessibility Studio Unified',version:'6.0',interactionLab:labData(),accessibleAlternatives:{responses:eqData(),assessment:eqEvaluate()},repairHistory:repairChangeHistory,repairPlan:{codeSuggestions:repairCandidates.map(c=>({kind:c.kind,title:c.title,mode:c.mode,selector:c.selector,selected:c.checked,relatedKeys:c.relatedKeys||[]})),guidedFindings:getAllFindings().filter(f=>!repairCandidates.some(c=>(c.relatedKeys||[]).includes(f.key))).map(f=>({key:f.key,severity:f.severity,title:f.title,correction:f.fix}))},standard:'WCAG 2.1 A/AA source checks, embedded-style safe preview, WCAG 2.2 advisory checks and manual review (not certification)',assets:assetInventory,preview:probeState,file:fileDetails,score:scoreFindings(getAllFindings()),sort:'nice → moderate → high → critical',findings:getAllFindings().sort((a,b)=>sevOrder[a.severity]-sevOrder[b.severity]||a.title.localeCompare(b.title)),manualReview:manualTests.map(t=>({...t,status:manualStatus[t.id]||'untested'})),limitations:['Not a WCAG compliance certification','Uploaded scripts are disabled during source audit; optional isolated preview can run inline scripts','External stylesheets are not loaded; optional isolated JavaScript does not reproduce the deployed website','Embedded/linked PDFs and other resources are not inspected','Computed styles are assessed only in script-disabled preview with external resources blocked; full keyboard, screen reader, zoom and rendered-state testing must be performed on the real page']};}
  function downloadFile(body,mime,suffix){const blob=new Blob([body],{type:mime});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=(currentFile.replace(/\.html?$/i,'').replace(/[^a-zA-Z0-9._-]/g,'_')||'page')+'-accessibility-audit.'+suffix;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
  function csvCell(value){return '"'+String(value??'').replace(/"/g,'""')+'"';}
  function exportCsv(){const rows=[['Severity','Finding','Area','Detection','Affected instances','Why it matters','Recommended correction','WCAG reference','Example selectors']];for(const f of reportData().findings)rows.push([sevLabels[f.severity],f.title,f.category,f.origin==='Manual'?'Manually confirmed':f.certainty,f.count,f.why,f.fix,f.wcag,f.elements.map(e=>e.selector).join(' | ')]);
@@ -602,7 +651,7 @@
    'focus-css':['outline-none'],'contrast':['contrast','rendered-contrast'],'page-heading':['h1'],
    'aria-reference':['broken-aria-labelledby','broken-aria-describedby','broken-aria-controls','broken-aria-errormessage'],
    'aria-live':['invalid-aria-live'],'orphan-label':['orphan-label'],'tabindex-reset':['positive-tabindex'],
-   'remove-refresh':['meta-refresh']})[kind]||[];
+   'remove-refresh':['meta-refresh'],'main-wrap':['main-landmark'],'border-contrast':['control-border-contrast'],'responsive-max':['narrow-overflow']})[kind]||[];
   const push=(kind,title,detail,mode,el,proposed='',extra={})=>{const selector=el?repairPath(el):'';if(selector&&doc.querySelectorAll(selector).length!==1)return;
    fixes.push({id:'r'+(++next),kind,title,detail,mode,selector,proposed,checked:mode==='safe',relatedKeys:inferKeys(kind,el),...extra});};
   if(found.has('zoom-block')){const vp=doc.querySelector('meta[name="viewport"]');if(vp)push('zoom','Remove zoom restrictions','Remove user-scalable=no and maximum-scale restrictions without changing other viewport parameters.','safe',vp);}
@@ -620,6 +669,7 @@
   for(const el of [...doc.querySelectorAll('table:not([role="presentation"]):not([role="none"])')].slice(0,40))if(el.querySelectorAll('tr').length>1&&!el.querySelector('th'))push('table-headers','Mark first row as column headers','Only select this if the first table row contains column headings. Will convert its cells to <th scope="col">; complex tables need more work.','assisted',el,'');
   for(const el of [...doc.querySelectorAll('div[onclick],span[onclick]')].slice(0,40))if(!el.hasAttribute('tabindex')&&!el.closest('button,a[href]'))push('native-button','Convert click-only element to native button','Replaces this div/span with a button and preserves inline onclick and content. CSS layout or JavaScript assumptions may break; test all states in the running app.','assisted',el,'');
   for(const el of [...doc.querySelectorAll('[aria-hidden="true"]')].slice(0,50)){if(el.matches('button,a[href],input:not([type="hidden"]),select,textarea')||el.querySelector('button,a[href],input:not([type="hidden"]),select,textarea'))push('unhide','Expose focusable content to assistive technology','Review whether aria-hidden was intentional. Removing it may expose content that should instead be genuinely disabled or hidden.','assisted',el,'');}
+  if(found.has('main-landmark')&&!doc.querySelector('main,[role="main"]'))push('main-wrap','Add a main-content landmark','Wrap body content other than top-level headers, navigation, footer, and scripts in a <main>. May change CSS or JavaScript parent selectors; preview and review before applying.','assisted',null,'');
   const main=doc.querySelector('main,[role="main"]');if(main&&!doc.querySelector('a[href^="#"]')?.getAttribute('href')?.includes(main.id||'__never__')&&!doc.querySelector('.skip-link')&&!doc.querySelector('[data-a11y-skip]'))push('skip','Add skip-to-main link','Add a keyboard-visible skip link targeting the existing main landmark.','safe',main);
   if(found.has('outline-none'))push('focus-css','Add focus-visible fallback outline','Adds a high-contrast outline for keyboard focus. Existing focus treatments and dark backgrounds need checking.','assisted',null,'#155eae');
   if(found.has('h1')&&!doc.querySelector('h1'))push('page-heading','Add a descriptive H1 heading','Enter a meaningful primary page heading. Inserts it at the start of main or body; review visual placement and heading hierarchy.','assisted',null,'');
@@ -636,6 +686,17 @@
   for(const el of [...doc.querySelectorAll('[role="dialog"],[role="alertdialog"],dialog')].slice(0,40))if(!named(el,doc))push('aria-name','Name dialog','Provide the dialog title as a short accessible name.','assisted',el,'',{relatedKeys:['dialog-name']});
   // Embedded-CSS contrast results are distinct from the rendered preview finding key.
   for(const f of staticFindings.filter(f=>f.key==='rendered-contrast'||f.key==='contrast'))for(const ex of f.elements.slice(0,20)){let el;try{el=doc.querySelector(ex.selector);}catch{}if(el&&!fixes.some(c=>c.kind==='contrast'&&c.selector===repairPath(el))){push('contrast','Propose text color override','Applies a proposed foreground to this element. Adjust the color to suit the background and inspect the next audit. Confirm hover, focus, and disabled states.','assisted',el,'#172536');}}
+  // Assisted styling suggestions based on the actual script-disabled safe preview.
+  for(const f of staticFindings.filter(f=>f.key==='control-border-contrast'))for(const ex of f.elements.slice(0,30)){
+    let el;try{el=doc.querySelector(ex.selector);}catch{}if(el&&!fixes.some(c=>c.kind==='border-contrast'&&c.selector===repairPath(el)))
+      push('border-contrast','Improve field border contrast','Suggest a border color based on the safe-preview background. Approve, then inspect hover/focus/disabled states and the live page.','assisted',el,visualFixHints.get('border:'+repairPath(el))||'#29394b');
+  }
+  const seenOverflow=new Set();
+  for(const f of staticFindings.filter(f=>f.key==='narrow-overflow'))for(const ex of f.elements.slice(0,16)){
+    let el;try{el=doc.querySelector(ex.selector);}catch{}if(!el||!el.matches('div,section,article,main,figure,table,svg,canvas,img,aside,fieldset'))continue;
+    const sel=repairPath(el);if(seenOverflow.has(sel))continue;seenOverflow.add(sel);
+    push('responsive-max','Try a narrow-screen layout constraint','At widths 480px and below, constrain this element to its available width. This may not solve overflow caused by descendants, grid settings, or charts. Review appearance and re-audit before treating it as resolved.','assisted',el,'');
+  }
   return fixes.slice(0,160);
  }
  function buildRepairCandidates(){repairCandidates=candidateSet(activeSource);renderRepairCandidates();}
@@ -644,38 +705,42 @@
   const ftypes=getAllFindings();const linked=new Set(repairCandidates.flatMap(c=>c.relatedKeys||[]));
   const pending=ftypes.filter(f=>!linked.has(f.key)||f.count>repairCandidates.filter(c=>(c.relatedKeys||[]).includes(f.key)).length);
   $('repairCount').textContent=repairCandidates.length+' code options · '+pending.length+' guided';
-  $('repairOverview').textContent=ftypes.length+' finding types identified; '+repairCandidates.length+' proposed code edits and '+pending.length+' finding types needing guided correction, additional element coverage, or verification. Suggestions are not confirmed repairs.';
+  $('repairOverview').textContent=ftypes.length+' findings · '+repairCandidates.length+' proposed edits · '+pending.length+' need additional review. Changes are suggestions until re-audited.';
   if(!repairCandidates.length)list.append(addEl('div','empty','No reliable code edits are available for these particular findings. Review the guided corrections below — the audit issues have not disappeared.'));
   const matchedSeverity=c=>{const src=ftypes.filter(f=>(c.relatedKeys||[]).includes(f.key));return src.length?src.reduce((a,f)=>sevOrder[f.severity]>sevOrder[a]?f.severity:a,src[0].severity):'nice';};
   const sorted=[...repairCandidates].sort((a,b)=>sevOrder[matchedSeverity(a)]-sevOrder[matchedSeverity(b)]||a.title.localeCompare(b.title));
   for(const c of sorted){const row=addEl('div','repair-item');const badges=addEl('div','repair-badges');badges.append(addEl('span','tag tag-'+matchedSeverity(c),sevLabels[matchedSeverity(c)]));
    if(!(c.relatedKeys||[]).some(k=>ftypes.some(f=>f.key===k)))badges.append(addEl('span','tag tag-outline','Proactive improvement'));
    row.append(badges);
-   const label=document.createElement('label');const cb=document.createElement('input');cb.type='checkbox';cb.checked=c.checked;cb.id='repair-'+c.id;cb.addEventListener('change',()=>{c.checked=cb.checked;refreshRepairPreview();});label.htmlFor=cb.id;label.append(cb);const title=document.createElement('span');title.textContent=c.title+'  ';const mode=addEl('span','repair-mode'+(c.mode==='assisted'?' assisted':''),c.mode==='safe'?'Low risk':'Needs approval');title.append(mode);label.append(title);row.append(label);row.append(addEl('p','',c.detail));
+   const label=document.createElement('label');const cb=document.createElement('input');cb.type='checkbox';cb.checked=c.checked;cb.id='repair-'+c.id;cb.addEventListener('change',()=>{c.checked=cb.checked;refreshRepairPreview();if(cb.checked)$('repairPreviewDisclosure').open=true;});label.htmlFor=cb.id;label.append(cb);const title=document.createElement('span');title.textContent=c.title+'  ';const mode=addEl('span','repair-mode'+(c.mode==='assisted'?' assisted':''),c.mode==='safe'?'Low risk':'Needs approval');title.append(mode);label.append(title);row.append(label);row.append(addEl('p','',c.detail));
    if(c.selector)row.append(addEl('p','repair-meta','Element: '+c.selector));
-   if(['lang','title','aria-name','frame-title','alt','contrast','focus-css','fieldset-legend','page-heading','table-caption','orphan-label','aria-live','aria-reference'].includes(c.kind)){
-     const input=document.createElement('input');input.type='text';input.id='value-'+c.id;input.value=c.proposed||'';input.setAttribute('aria-label','Proposed value for '+c.title);input.placeholder=c.kind==='alt'?'Meaningful image description':c.kind==='contrast'?'e.g. #172536':c.kind==='aria-reference'?'IDs of existing elements':'Enter proposed value';input.addEventListener('input',()=>{c.proposed=input.value;refreshRepairPreview();});row.append(input);
+   if(['lang','title','aria-name','frame-title','alt','contrast','focus-css','fieldset-legend','page-heading','table-caption','orphan-label','aria-live','aria-reference','border-contrast'].includes(c.kind)){
+     const input=document.createElement('input');input.type='text';input.id='value-'+c.id;input.value=c.proposed||'';input.setAttribute('aria-label','Proposed value for '+c.title);input.placeholder=c.kind==='alt'?'Meaningful image description':['contrast','border-contrast'].includes(c.kind)?'e.g. #29394b':c.kind==='aria-reference'?'IDs of existing elements':'Enter proposed value';input.addEventListener('input',()=>{c.proposed=input.value;refreshRepairPreview();});row.append(input);
      if(c.kind==='alt'&&!c.decorative)row.append(addEl('p','repair-warning','For a truly decorative image, type exactly [decorative]. Never hide informative image content.'));
      if(c.kind==='alt'&&c.decorative)row.append(addEl('p','repair-warning','This image is explicitly marked decorative. Empty alt text will be used.'));
    }
    list.append(row);
   }
-  if(!pending.length)guides.append(addEl('div','empty',ftypes.length?'All currently listed finding types have related code proposals. Apply only appropriate fixes and re-audit.':'No audit findings were identified. Full keyboard and screen-reader verification is still needed.'));
-  for(const f of pending.sort((a,b)=>sevOrder[a.severity]-sevOrder[b.severity]||a.title.localeCompare(b.title))){const row=addEl('div','repair-item guide '+f.severity);const badges=addEl('div','repair-badges');badges.append(addEl('span','tag tag-'+f.severity,sevLabels[f.severity]));badges.append(addEl('span','tag tag-outline',f.origin==='Manual'?'Manual test':f.certainty));badges.append(addEl('span','tag tag-outline','Guided correction'));row.append(badges);
-   const covered=repairCandidates.filter(c=>(c.relatedKeys||[]).includes(f.key)).length;
-   row.append(addEl('strong','',f.title));
-   if(covered>0)row.append(addEl('p','repair-warning','Only '+Math.min(f.count,covered)+' of '+f.count+' reported occurrence(s) have proposed code edits. Review other affected elements and retest.'));
-   row.append(addEl('p','repair-guidance',f.fix));
-   row.append(addEl('p','repair-meta',(f.count||1)+' affected instance(s) · WCAG / reference: '+f.wcag));
-   if(f.elements?.length)row.append(addEl('p','repair-meta','Example: '+f.elements[0].selector));
-   const b=addEl('button','btn btn-small repair-jump','View full finding');b.type='button';b.addEventListener('click',()=>{$('searchIssues').value=f.title;$('filterSeverity').value='all';$('filterCategory').value='all';showIssues();$('findingsHeading').scrollIntoView({behavior:'smooth',block:'start'});});row.append(b);guides.append(row);
+  $('guideCount').textContent=pending.length+' findings need guided review';
+  $('detailsTabCount').textContent=ftypes.length;
+  $('guidedSummary').textContent=pending.length?pending.length+' findings still need guidance or verification. Open Details for explanations and affected elements.':'Every detected finding has a related code proposal. Re-audit to confirm results.';
+  if(!pending.length)guides.append(addEl('div','empty',ftypes.length?'All currently listed findings have related proposed edits. Re-audit to confirm whether they were resolved.':'No findings detected in current screening; real-world keyboard and screen-reader checks are still required.'));
+  for(const f of pending.sort((a,b)=>sevOrder[b.severity]-sevOrder[a.severity]||a.title.localeCompare(b.title))){
+   const row=addEl('details','repair-item guide guide-compact '+f.severity);const head=addEl('summary','');
+   const badge=addEl('span','tag tag-'+f.severity,sevLabels[f.severity]);head.append(badge);head.append(document.createTextNode('  '+f.title));
+   const counter=addEl('span','repair-meta','  · '+(f.count||1)+' affected');head.append(counter);row.append(head);
+   const inner=addEl('div','guide-inner');const covered=repairCandidates.filter(c=>(c.relatedKeys||[]).includes(f.key)).length;
+   if(covered)inner.append(addEl('p','repair-warning','Proposed edits cover only part of this finding. Review other affected elements.'));
+   inner.append(addEl('p','repair-guidance',f.fix));inner.append(addEl('p','repair-meta','WCAG / reference: '+f.wcag));
+   if(f.elements?.length)inner.append(addEl('p','repair-meta','Example: '+f.elements[0].selector));
+   const b=addEl('button','btn btn-small repair-jump','View all affected examples');b.type='button';b.addEventListener('click',()=>{$('searchIssues').value=f.title;$('filterSeverity').value='all';$('filterCategory').value='all';showIssues();switchStudioTab('details');$('findingsHeading').scrollIntoView({behavior:'smooth',block:'start'});});inner.append(b);row.append(inner);guides.append(row);
   }
   refreshRepairPreview();
  }
  function patchSelected(){const doc=new DOMParser().parseFromString(activeSource,'text/html');const selected=repairCandidates.filter(x=>x.checked);const log=[],unapplied=[];
   const structural=[];
   for(const c of selected){const val=trimmed(c.proposed);if(['title','lang','alt','aria-name','frame-title','contrast','focus-css','fieldset-legend','page-heading','table-caption','orphan-label','aria-live','aria-reference'].includes(c.kind)&&!val&&!(c.kind==='alt'&&c.decorative)){unapplied.push(c.title+': missing value');continue;}
-   if(c.kind==='skip'||c.kind==='title'||c.kind==='focus-css'||c.kind==='page-heading'){structural.push(c);continue;}
+   if(c.kind==='skip'||c.kind==='title'||c.kind==='focus-css'||c.kind==='page-heading'||c.kind==='main-wrap'){structural.push(c);continue;}
    let el=null;try{el=doc.querySelector(c.selector);}catch{}if(!el){unapplied.push(c.title+': target no longer exists');continue;}
    if(c.kind==='zoom'){
     const parts=(el.getAttribute('content')||'').split(/[,;]/).map(x=>x.trim()).filter(x=>x&&!/^user-scalable\s*=\s*(no|0)$/i.test(x)&&!/^maximum-scale\s*=\s*1(?:\.0+)?$/i.test(x));el.setAttribute('content',parts.join(', '));
@@ -694,12 +759,24 @@
    }else if(c.kind==='remove-refresh'){el.remove();
    }else if(c.kind==='native-button'){const btn=doc.createElement('button');for(const attr of [...el.attributes])btn.setAttribute(attr.name,attr.value);btn.removeAttribute('tabindex');btn.removeAttribute('role');btn.type='button';while(el.firstChild)btn.append(el.firstChild);el.replaceWith(btn);
 
+   }else if(c.kind==='responsive-max'){
+     // Stable data attribute survives any later insertion of skip links or main landmarks.
+     const marker='a11y-responsive-'+c.id;el.setAttribute('data-a11y-repair-responsive',marker);
+     const style=doc.createElement('style');style.setAttribute('data-accessibility-repair','responsive');
+     style.textContent='@media (max-width:480px){[data-a11y-repair-responsive="'+marker+'"]{max-width:100% !important;min-width:0 !important;box-sizing:border-box !important;}}';doc.head.append(style);
+   }else if(c.kind==='border-contrast'){if(!/^#[0-9a-f]{3}(?:[0-9a-f]{3})?$/i.test(val)){unapplied.push('Invalid border color '+val);continue;}el.style.setProperty('border-color',val,'important');
    }else if(c.kind==='contrast'){if(!/^#[0-9a-f]{3}(?:[0-9a-f]{3})?$/i.test(val)){unapplied.push('Invalid contrast color '+val);continue;}el.style.setProperty('color',val,'important');
    }else continue;
    log.push(c.title);
   }
   for(const c of structural){const val=trimmed(c.proposed);
-   if(c.kind==='page-heading'){const heading=doc.createElement('h1');heading.textContent=val;const parent=doc.querySelector('main,[role="main"]')||doc.body;parent.insertBefore(heading,parent.firstChild);log.push(c.title);
+   if(c.kind==='main-wrap'){
+     if(doc.querySelector('main,[role="main"]')){unapplied.push('Main landmark already exists');continue;}
+     const main=doc.createElement('main');main.id='a11y-main';if(doc.getElementById(main.id)){let n=2;while(doc.getElementById('a11y-main-'+n))n++;main.id='a11y-main-'+n;}
+     const blocks=[...doc.body.childNodes].filter(node=>node.nodeType===1&&!node.matches('script,style,noscript,template,header,nav,footer') || node.nodeType===3&&node.textContent.trim());
+     if(!blocks.length){unapplied.push('No clear page content to wrap in main');continue;}
+     blocks[0].before(main);for(const node of blocks)main.append(node);log.push(c.title);
+   }else if(c.kind==='page-heading'){const heading=doc.createElement('h1');heading.textContent=val;const parent=doc.querySelector('main,[role="main"]')||doc.body;parent.insertBefore(heading,parent.firstChild);log.push(c.title);
    }else if(c.kind==='title'){let title=doc.querySelector('head > title');if(!title){title=doc.createElement('title');doc.head.append(title);}title.textContent=val;log.push(c.title);
    }else if(c.kind==='focus-css'){if(!/^#[0-9a-f]{3}(?:[0-9a-f]{3})?$/i.test(val)){unapplied.push('Invalid focus outline color '+val);continue;}const style=doc.createElement('style');style.setAttribute('data-accessibility-repair','focus');style.textContent=':focus-visible{outline:3px solid '+val+' !important;outline-offset:3px !important;}';doc.head.append(style);log.push(c.title);
    }else if(c.kind==='skip'){
