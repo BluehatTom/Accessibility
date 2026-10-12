@@ -37,6 +37,17 @@
     @media(max-width:680px){.wrap{padding:0 16px}.nav{align-items:flex-start}.nav-note{white-space:normal;text-align:center}.hero{padding:26px 0}.upload-panel{padding:15px}.summary{grid-template-columns:1fr 1fr}.score-card.main{grid-column:1/-1}.manual-list{grid-template-columns:1fr}.finding-content{padding:15px}.toolbar{padding:12px}.field,.field-search{min-width:100%;flex-basis:100%}.report-header{align-items:flex-start}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
     @media print{.topline,.topbar,.upload-panel,.toolbar,.manual-item select,.report-actions,.skip-link{display:none!important}body{background:#fff}.wrap{max-width:none}.panel,.finding,.score-card{box-shadow:none;break-inside:avoid}.manual-list{grid-template-columns:1fr 1fr}.finding details:not([open]){display:none}.report-header{margin-top:0}}
+
+    .coverage-box{padding:18px 19px;margin-bottom:20px}.coverage-box h3{font-size:1.1rem;margin:0 0 6px}.coverage-box>p{font-size:.89rem;color:#435569;margin:3px 0 13px}
+    .coverage-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.coverage-row{border:1px solid #dbe3eb;background:#fafcfe;border-radius:8px;padding:11px 13px;display:flex;justify-content:space-between;gap:15px;align-items:start}
+    .coverage-row strong{display:block;font-size:.88rem;line-height:1.35}.coverage-row p{font-size:.79rem;color:#596778;margin:4px 0 0}.coverage-mark{background:#e8eef8;color:#1b487e;font-size:.72rem;white-space:normal;text-align:center;border-radius:7px;padding:4px 7px;max-width:128px;font-weight:700}
+    .inventory-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.inventory-card{background:#f8fafc;border:1px solid #dce5ef;padding:13px;border-radius:9px;min-width:0}
+    .inventory-card strong{font-size:.9rem}.inventory-card p{font-size:.8rem;color:#5a6b79;margin:7px 0 0}.inventory-card ul{padding:0 0 0 18px;margin:7px 0 0;font-size:.76rem;color:#43536a;overflow-wrap:anywhere}
+    .asset-head{font-size:1.08rem;margin:20px 0 8px}.probe-status{font-size:.86rem;color:#33587c;background:#edf4fb;border-radius:8px;padding:9px 12px;margin-bottom:10px}
+    .manual-assist{margin:8px 0!important;padding:7px 9px;border-left:3px solid #7f9cbf;background:#f3f7fc;border-radius:3px;font-size:.78rem!important;color:#304763!important}
+    #probeFrame{position:fixed;left:-100000px;top:-100000px;width:1280px;height:900px;border:0;pointer-events:none;visibility:visible;z-index:-1}
+    @media(max-width:800px){.coverage-grid,.inventory-grid{grid-template-columns:1fr}.coverage-row{flex-wrap:wrap}.coverage-mark{max-width:none}}
+    @media print{.coverage-box{break-inside:auto}.coverage-row,.inventory-card{break-inside:avoid}#probeFrame{display:none!important}}
   </style>
 </head>
 <body>
@@ -44,13 +55,13 @@
 <div class="topline"></div>
 <header class="topbar"><div class="wrap nav"><div class="brand"><span class="brand-mark" aria-hidden="true">A11Y</span><span>Accessibility Audit Studio</span></div><span class="nav-note">Private • Local HTML analysis</span></div></header>
 <main id="main" class="wrap">
-  <div class="hero"><p class="eyebrow">Website accessibility review</p><h1>Find accessibility problems before users do.</h1><p class="intro">Upload an HTML file to receive a prioritized correction list, an estimated accessibility readiness score, and a guided WCAG 2.1 AA manual-review checklist. No server or account needed.</p></div>
+  <div class="hero"><p class="eyebrow">Website accessibility review</p><h1>Examine more of your HTML accessibility automatically.</h1><p class="intro">Upload an HTML file to receive a prioritized correction list, an estimated accessibility readiness score, and a safe rendered-style screening, linked-asset inventory, and targeted WCAG manual-review checklist. No server or account needed.</p></div>
   <section class="panel upload-panel" aria-labelledby="upload-title">
     <div class="upload-layout"><div id="dropZone" class="dropzone"><div><div class="drop-icon" aria-hidden="true">⇧</div><h2 id="upload-title">Upload an HTML file</h2><p>Drag and drop a <strong>.html</strong> or <strong>.htm</strong> file here, or choose one below.</p><div class="actions"><button class="btn btn-primary" id="chooseBtn" type="button">Choose HTML file</button><button class="btn" id="sampleBtn" type="button">Try example file</button></div><input id="fileInput" type="file" accept=".html,.htm,text/html" hidden></div></div>
-      <div class="upload-info"><h2>What this checker does</h2><ul><li>Detects common HTML, ARIA, forms, image, navigation, and markup problems.</li><li>Ranks fixes from <strong>Nice to fix</strong> to <strong>Critical</strong>.</li><li>Provides targeted correction guidance and affected elements.</li><li>Adds manual tests for keyboard use, screen readers, contrast, video, and interactive features.</li></ul></div></div>
+      <div class="upload-info"><h2>What this checker does</h2><ul><li>Checks HTML, ARIA, keyboard clues, forms, embedded CSS contrast, responsive overflow, and touch targets.</li><li>Ranks fixes from <strong>Nice to fix</strong> to <strong>Critical</strong>.</li><li>Provides targeted correction guidance and affected elements.</li><li>Shows which of the 20 manual-review areas were partially screened automatically.</li></ul></div></div>
     <p id="status" class="status" role="status" aria-live="polite">Choose a file to begin.</p>
   </section>
-  <div class="notice"><strong>Scope:</strong> This is a static HTML checker, not an ADA certification tool. Uploaded scripts are never executed. External stylesheets, linked documents, runtime behavior, and full WCAG conformance require additional testing. All analysis happens in your browser; your file is not uploaded to a server.</div>
+  <div class="notice"><strong>Scope:</strong> This is a source and safe-render preview checker, not an ADA certification tool. Uploaded JavaScript never runs. A script-disabled sandbox preview checks embedded styles at two widths; external assets are blocked, so rendered findings are estimates. External stylesheets, linked documents, real application behavior and full WCAG conformance still require separate testing. All analysis happens in your browser; your file is not uploaded to a server.</div>
   <div id="report" hidden>
     <div class="report-header"><div><h2 id="reportTitle">Accessibility audit results</h2><p class="file-line" id="fileMeta"></p></div><div class="actions report-actions"><button class="btn btn-small" id="csvBtn" type="button">Export CSV</button><button class="btn btn-small" id="jsonBtn" type="button">Export JSON</button><button class="btn btn-small" id="printBtn" type="button">Print / PDF</button></div></div>
     <section class="summary" aria-label="Accessibility score and issue severity totals">
@@ -60,15 +71,25 @@
       <div class="score-card sev-high"><div class="stat-label">High</div><div id="highCount" class="severity-count">0</div><div class="stat-sub">Finding types</div></div>
       <div class="score-card sev-crit"><div class="stat-label">Critical</div><div id="criticalCount" class="severity-count">0</div><div class="stat-sub">Finding types</div></div>
     </section>
-    <div class="explain-bar"><strong id="summarySentence"></strong><span> The score is a heuristic based on identified issues, not a measured percentage of WCAG compliance. An absence of findings does not establish legal compliance. Manual checks and testing the actual running website remain necessary.</span></div>
-    <section class="section" aria-labelledby="findingsHeading"><div class="section-heading"><div><h2 id="findingsHeading">Corrections to make</h2><p>Grouped by problem type. Default order: Nice to fix → Moderate → High → Critical.</p></div><span id="visibleCount" class="manual-progress"></span></div>
-      <div class="toolbar"><div class="field field-search"><label for="searchIssues">Search findings</label><input id="searchIssues" type="search" placeholder="e.g. image, keyboard, form"></div><div class="field"><label for="filterSeverity">Severity</label><select id="filterSeverity"><option value="all">All severities</option><option value="nice">Nice to fix</option><option value="moderate">Moderate</option><option value="high">High</option><option value="critical">Critical</option></select></div><div class="field"><label for="filterCategory">Area</label><select id="filterCategory"><option value="all">All areas</option></select></div><div class="field"><label for="sortIssues">Sort</label><select id="sortIssues"><option value="low">Nice to fix → Critical</option><option value="high">Critical → Nice to fix</option></select></div></div>
-      <div id="issues" class="findings" aria-live="polite" aria-relevant="additions removals"></div>
+    <div class="explain-bar"><strong id="summarySentence"></strong><span> The score is a heuristic based on detectable findings and marked manual failures; uncertain potential findings receive a smaller weighting (40%) until confirmed. Scores are not compliance grades. An absence of findings does not establish legal compliance. Manual checks and testing the actual running website remain necessary.</span></div>
+    <section class="panel coverage-box" aria-labelledby="coverageHeading">
+      <h3 id="coverageHeading">Automated screening across the 20 review areas</h3>
+      <p id="visualProbeStatus" class="probe-status" role="status">Waiting for an HTML file.</p>
+      <p>Automated screening can find specific defects and suspicious patterns. A screened area is <strong>not</strong> an area that has passed WCAG. These checks use the HTML source and a script-disabled preview; interactive behavior must still be tested.</p>
+      <div id="coverageList" class="coverage-grid" aria-label="Automated support for review topics"></div>
+      <h3 class="asset-head">Linked documents and third-party dependencies</h3>
+      <p>Referenced files are inventoried, not downloaded or audited. Linked PDFs, services and scripts need separate checks.</p>
+      <div id="assetInventory" class="inventory-grid"></div>
     </section>
-    <section class="section" aria-labelledby="manualHeading"><div class="section-heading"><div><h2 id="manualHeading">Manual accessibility verification</h2><p>Source inspection cannot reliably check these requirements. Test the actual running page, then record each result.</p></div><span id="manualProgress" class="manual-progress">0 tested</span></div><div class="panel manual-shell"><div class="manual-headline"><span style="font-size:.87rem;color:#536578">Selecting <strong>Needs correction</strong> adds that test to the correction list and updates the score.</span><button class="btn btn-small btn-outline-red" type="button" id="resetManualBtn">Reset manual answers</button></div><div id="manualList" class="manual-list"></div></div></section>
+    <section class="section" aria-labelledby="findingsHeading"><div class="section-heading"><div><h2 id="findingsHeading">Corrections to make</h2><p>Grouped by problem type. Default order: Nice to fix → Moderate → High → Critical.</p></div><span id="visibleCount" class="manual-progress" role="status" aria-live="polite"></span></div>
+      <div class="toolbar"><div class="field field-search"><label for="searchIssues">Search findings</label><input id="searchIssues" type="search" placeholder="e.g. image, keyboard, form"></div><div class="field"><label for="filterSeverity">Severity</label><select id="filterSeverity"><option value="all">All severities</option><option value="nice">Nice to fix</option><option value="moderate">Moderate</option><option value="high">High</option><option value="critical">Critical</option></select></div><div class="field"><label for="filterCategory">Area</label><select id="filterCategory"><option value="all">All areas</option></select></div><div class="field"><label for="sortIssues">Sort</label><select id="sortIssues"><option value="low">Nice to fix → Critical</option><option value="high">Critical → Nice to fix</option></select></div></div>
+      <div id="issues" class="findings"></div>
+    </section>
+    <section class="section" aria-labelledby="manualHeading"><div class="section-heading"><div><h2 id="manualHeading">Manual accessibility verification</h2><p>The automated screening above helps with these areas but cannot confirm a full pass. Test the running page, then record each result.</p></div><span id="manualProgress" class="manual-progress">0 tested</span></div><div class="panel manual-shell"><div class="manual-headline"><span style="font-size:.87rem;color:#536578">Selecting <strong>Needs correction</strong> adds that test to the correction list and updates the score.</span><button class="btn btn-small btn-outline-red" type="button" id="resetManualBtn">Reset manual answers</button></div><div id="manualList" class="manual-list"></div></div></section>
   </div>
   <footer class="footer"><p><strong>Reference:</strong> W3C WCAG 2.1 Level A and AA and U.S. DOJ Title II digital accessibility guidance. WCAG 2.2 AA is a useful additional development target.</p><p>The checker is an aid for triage, not a substitute for expert audits, assistive-technology testing, or legal advice.</p></footer>
 </main>
+<iframe id="probeFrame" sandbox="allow-same-origin" tabindex="-1" aria-hidden="true" title="Noninteractive analysis preview"></iframe>
 <script>
 'use strict';
 (() => {
@@ -76,7 +97,7 @@
  const sevOrder={nice:0,moderate:1,high:2,critical:3};
  const sevLabels={nice:'Nice to fix',moderate:'Moderate',high:'High',critical:'Critical'};
  const severityPoints={nice:2,moderate:5,high:11,critical:22};
- let currentFile='', analyzedNodes=0, maxTruncated=false, staticFindings=[], manualStatus={}, fileDetails={};
+ let currentFile='', analyzedNodes=0, maxTruncated=false, staticFindings=[], manualStatus={}, fileDetails={}, scanId=0;
  const manualTests=[
   {id:'complete-keyboard',severity:'critical',category:'Interaction',title:'Complete all tasks using only a keyboard',wcag:'2.1.1, 2.1.2',check:'Use Tab, Shift+Tab, Enter, Space, arrows and Escape to complete every primary task. Check there are no keyboard traps.',fix:'Make all interactions work from a keyboard, use native controls wherever possible, and remove keyboard traps.'},
   {id:'screen-reader',severity:'critical',category:'Code & ARIA',title:'Test the full experience with a screen reader',wcag:'1.3.1, 4.1.2, 4.1.3',check:'Test with NVDA, JAWS, or VoiceOver. Verify logical reading order, control names, changed values and status announcements.',fix:'Correct semantic markup, accessible names and roles, focus management and live region announcements.'},
@@ -122,6 +143,7 @@
   const map=new Map();const all=Array.from(doc.querySelectorAll('*'));
   maxTruncated=all.length>20000;const nodes=all.slice(0,20000);analyzedNodes=nodes.length;
   const Q=s=>Array.from(doc.querySelectorAll(s)).filter(x=>!visuallyHidden(x)).slice(0,20000);
+  const body=doc.body; if(body&&(body.hasAttribute('hidden')||body.getAttribute('aria-hidden')==='true'||/display\s*:\s*none/i.test(body.getAttribute('style')||'')))add(map,'body-unavailable','critical','Structure','The entire page content is hidden or unavailable','The body is hidden, potentially making the entire page inaccessible to sighted or assistive-technology users.','Remove hidden, aria-hidden or display:none from the active body content.','1.3.1, 4.1.2',body,'Potential');
   if(!doc.querySelector('title')||!trimmed(doc.querySelector('title')?.textContent))add(map,'title', 'high','Structure','Missing or empty page title','A screen reader or browser tab cannot clearly identify this page.','Put a short, descriptive, nonempty <title> inside <head>.','2.4.2');
   const lang=doc.documentElement.getAttribute('lang');
   if(!lang||!trimmed(lang))add(map,'lang','high','Structure','The document language is not declared','Screen readers may pronounce content using the wrong language.','Add a suitable language code, for example <html lang="en">.','3.1.1',doc.documentElement);
@@ -155,7 +177,9 @@
     if(!el.querySelector('caption')&&!el.getAttribute('aria-label')&&!el.getAttribute('aria-labelledby'))add(map,'table-caption','nice','Structure','Data table could use an accessible name','A table title can help users identify the table quickly. It is not mandatory for every table.','Consider an informative <caption> or another accessible table label.','Best practice',el,'Potential');}
   const seen=new Set();for(const el of Q('[id]')){const id=el.getAttribute('id');if(seen.has(id))add(map,'duplicate-id','high','Code & ARIA','Duplicate element IDs','Duplicate IDs can break label, name, description and focus references.','Ensure every id value is unique within the document.','1.3.1, 4.1.2',el,'Potential');seen.add(id);}
   for(const el of Q('[aria-labelledby],[aria-describedby],[aria-controls]'))for(const attr of ['aria-labelledby','aria-describedby','aria-controls'])if(el.hasAttribute(attr))for(const ref of trimmed(el.getAttribute(attr)).split(/\s+/)){if(ref&&!doc.getElementById(ref))add(map,'broken-'+attr,attr==='aria-controls'?'moderate':'high','Code & ARIA','Broken '+attr+' reference','An ARIA relationship refers to an element ID that does not exist.','Replace invalid ID references with the IDs of real, relevant elements.','1.3.1, 4.1.2',el);}
-  for(const el of Q('[aria-hidden="true"]')){if(el.matches('a[href],button,input:not([type="hidden"]),select,textarea,[tabindex]:not([tabindex="-1"])')||el.querySelector('a[href],button,input:not([type="hidden"]),select,textarea,[tabindex]:not([tabindex="-1"])'))add(map,'hidden-focus','high','Code & ARIA','Focusable control is hidden from assistive technology','A focusable element inside aria-hidden content may be operable by keyboard but absent from the accessibility tree.','Remove aria-hidden from interactive content or truly disable/hide all descendant controls.','4.1.2',el);}
+  for(const el of Array.from(doc.querySelectorAll('[aria-hidden="true"]')).slice(0,20000)){if(el.hasAttribute('hidden')||/display\s*:\s*none/i.test(el.getAttribute('style')||''))continue;if(el.matches('a[href],button,input:not([type="hidden"]),select,textarea,[tabindex]:not([tabindex="-1"])')||el.querySelector('a[href],button,input:not([type="hidden"]),select,textarea,[tabindex]:not([tabindex="-1"])'))add(map,'hidden-focus','high','Code & ARIA','Focusable control is hidden from assistive technology','A focusable element inside aria-hidden content may be operable by keyboard but absent from the accessibility tree.','Remove aria-hidden from interactive content or truly disable/hide all descendant controls.','4.1.2',el);}
+  for(const el of Q('[role]')){const role=trimmed(el.getAttribute('role')).split(/\s+/)[0];const known='alert alertdialog application article banner blockquote button caption cell checkbox code columnheader combobox command comment complementary contentinfo definition deletion dialog directory document emphasis feed figure form generic grid gridcell group heading img input insertion landmark link list listbox listitem log main marquee math menu menubar menuitem menuitemcheckbox menuitemradio meter navigation none note option paragraph presentation progressbar radio radiogroup region row rowgroup rowheader scrollbar search searchbox separator slider spinbutton status strong subscript suggestion superscript switch tab table tablist tabpanel term textbox time timer toolbar tooltip tree treegrid treeitem'.split(' ');if(role&&!known.includes(role))add(map,'invalid-role','high','Code & ARIA','Unrecognized ARIA role','A misspelled or invalid role may be ignored by assistive technology.','Use a valid WAI-ARIA role, preferably through a suitable native HTML element.','4.1.2',el,'Potential');}
+  for(const el of Q('[aria-expanded],[aria-checked],[aria-selected],[aria-pressed]'))for(const attr of ['aria-expanded','aria-checked','aria-selected','aria-pressed'])if(el.hasAttribute(attr)&&!['true','false',...(attr==='aria-checked'||attr==='aria-pressed'?['mixed']:[])].includes(el.getAttribute(attr)))add(map,'aria-state','high','Code & ARIA','ARIA state has an invalid value','Assistive technology may not reliably announce an invalid ARIA state.','Use valid state values (for example true or false) for the relevant ARIA property.','4.1.2',el);
   for(const el of Q('[tabindex]'))if(Number(el.getAttribute('tabindex'))>0)add(map,'positive-tabindex','moderate','Navigation','Positive tabindex changes natural keyboard order','Custom positive tabindex values often create unexpected navigation sequences.','Use DOM order and tabindex="0" or "-1" only when appropriate.','2.4.3',el,'Potential');
   for(const el of Q('[onclick],[onmousedown],[onmouseup],[onpointerdown],[ontouchstart]')){if(el.matches('button,a[href],input,select,textarea,summary'))continue;
     const tabbable=el.hasAttribute('tabindex')&&Number(el.getAttribute('tabindex'))>=0;
@@ -170,15 +194,16 @@
   const styles=Array.from(doc.querySelectorAll('style')).map(el=>el.textContent||'').join('\n');
   if(/:focus(?:-visible)?[^{}]*\{[^{}]*outline\s*:\s*(?:0(?:px)?|none)\s*(?:;|})/i.test(styles))add(map,'outline-none','moderate','Visual & zoom','CSS may remove the visible keyboard focus outline','A CSS focus rule disables an outline; a different focus indicator may or may not replace it.','Verify every focused control still has a clearly visible indicator; use :focus-visible with a strong outline or equivalent.','2.4.7',null,'Potential');
   checkContrast(doc,styles,map,add);
+  extendedSourceChecks(source,map,doc,styles,Q);
   return [...map.values()];
  }
  function colorFrom(value){if(!value||/var\(|currentcolor|transparent|gradient|inherit|initial|unset|url\(/i.test(value))return null;try{if(!CSS.supports('color',value))return null;let c=document.createElement('canvas').getContext('2d');c.fillStyle='#010203';c.fillStyle=value;const normalized=c.fillStyle;let nums=[];
    if(/^#[0-9a-f]{6}$/i.test(normalized))nums=[1,3,5].map(i=>parseInt(normalized.slice(i,i+2),16));else if(/^#[0-9a-f]{3}$/i.test(normalized))nums=[1,2,3].map(i=>parseInt(normalized[i]+normalized[i],16));else if(/^rgba?\(/i.test(normalized)){const pieces=normalized.match(/[\d.]+/g)||[];if(pieces.length>=4&&Number(pieces[3])<1)return null;nums=pieces.slice(0,3).map(Number);}return nums.length===3?nums:null;}catch{return null;}}
  function contrastRatio(a,b){const linear=color=>color.map(v=>{v/=255;return v<=.04045?v/12.92:((v+.055)/1.055)**2.4;});const L=x=>{const p=linear(x);return p[0]*.2126+p[1]*.7152+p[2]*.0722};const l1=L(a),l2=L(b);return (Math.max(l1,l2)+.05)/(Math.min(l1,l2)+.05);}
  function collectRules(cssText){let result=[];if(!cssText.trim()||!('CSSStyleSheet' in window))return result;try{const sheet=new CSSStyleSheet();sheet.replaceSync(cssText);for(const rule of sheet.cssRules){if(rule.type!==CSSRule.STYLE_RULE)continue;const selector=rule.selectorText;if(/::|:(?:hover|focus|active|visited|before|after|first-|nth-|not\(|has\()/i.test(selector))continue;result.push({selector,style:rule.style});if(result.length>=300)break;}}catch{}return result;}
- function checkContrast(doc,styles,map,add){const rules=collectRules(styles);const eligible=Array.from(doc.querySelectorAll('body *')).slice(0,800);let failed=0;
-  function specified(el,key){if(!el)return null;let current=null,weight=-1;for(let i=0;i<rules.length;i++){const rule=rules[i];try{if(el.matches(rule.selector)&&rule.style.getPropertyValue(key)){const s=rule.selector;const specificity=(s.match(/#[\w-]+/g)||[]).length*100+(s.match(/\.[\w-]+|\[[^\]]+\]|:(?!:)[\w-]+/g)||[]).length*10+(s.match(/(^|\s|>|\+|~)[a-z][\w-]*/gi)||[]).length;const w=specificity*1000+i;if(w>=weight){weight=w;current=rule.style.getPropertyValue(key);}}}catch{}}
-   if(el.style&&el.style.getPropertyValue(key))current=el.style.getPropertyValue(key);return current;}
+ function checkContrast(doc,styles,map,add){const rules=collectRules(styles);const eligible=Array.from(doc.querySelectorAll('body *')).slice(0,800);let failed=0;const propertyCache=new WeakMap();
+  function specified(el,key){if(!el)return null;let cached=propertyCache.get(el);if(cached&&Object.hasOwn(cached,key))return cached[key];if(!cached){cached={};propertyCache.set(el,cached);}let current=null,weight=-1;for(let i=0;i<rules.length;i++){const rule=rules[i];try{if(el.matches(rule.selector)&&rule.style.getPropertyValue(key)){const s=rule.selector;const specificity=(s.match(/#[\w-]+/g)||[]).length*100+(s.match(/\.[\w-]+|\[[^\]]+\]|:(?!:)[\w-]+/g)||[]).length*10+(s.match(/(^|\s|>|\+|~)[a-z][\w-]*/gi)||[]).length;const w=specificity*1000+i;if(w>=weight){weight=w;current=rule.style.getPropertyValue(key);}}}catch{}}
+   if(el.style&&el.style.getPropertyValue(key))current=el.style.getPropertyValue(key);cached[key]=current;return current;}
   function findForeground(el){while(el&&el.nodeType===1){const v=specified(el,'color');if(v){return colorFrom(v);}el=el.parentElement;}return null;}
   function findBackground(el){while(el&&el.nodeType===1){let v=specified(el,'background-color')||specified(el,'background');if(v){return colorFrom(v);}el=el.parentElement;}return null;}
   for(const el of eligible){if(failed>=30)break;if(visuallyHidden(el)||!Array.from(el.childNodes).some(n=>n.nodeType===3&&trimmed(n.textContent).length>=2))continue;
@@ -188,16 +213,224 @@
     if(ratio+0.01<threshold){failed++;add(map,'contrast','high','Visual & zoom','Potential insufficient text contrast in embedded CSS','A text/background color pair appears to fall below the WCAG '+threshold+':1 contrast threshold (measured approximately at '+ratio.toFixed(2)+':1). CSS inheritance, media queries, transparency and external stylesheets can change the rendered result.','Check the rendered element with a contrast tool and adjust colors to at least 4.5:1 for normal text or 3:1 for qualifying large text.','1.4.3',el,'Potential');}
   }
  }
+ // Source-based checks extend the original audit. Flags marked Potential require confirmation.
+ let assetInventory = {}, probeState = {rendered:false, wide:false, narrow:false, error:''}, activeProbeCancel=null;
+ const relatedRules = {
+  'complete-keyboard':['click-only','click-key','custom-focus','positive-tabindex','hidden-focus','pointer-gestures','role-tabindex','cursor-pointer','js-link'],
+  'screen-reader':['img-alt','input-label','link-name','button-name','invalid-role','aria-state','broken-aria-labelledby','broken-aria-describedby','hidden-focus','dialog-name','status-role','svg-name','canvas-alt'],
+  'contrast-text':['contrast','rendered-contrast'],
+  'contrast-graphics':['control-border-contrast'],
+  'zoom':['zoom-block','narrow-overflow','fixed-width','text-clipping'],
+  'focus':['positive-tabindex','outline-none','hidden-focus','focus-style'],
+  'charts':['canvas-alt','svg-name','graph-alternative','svg-undescribed','img-alt'],
+  'video':['video-captions','video-track-src','media-controls','autoplay'],
+  'dynamic':['dialog-name','dialog-modal','status-role','invalid-aria-live','broken-aria-controls','live-region'],
+  'documents':[],
+  'forms':['input-label','orphan-label','legend','form-error','required-label','broken-aria-errormessage'],
+  'third-party':['iframe-title'],
+  'drag':['pointer-gestures','drag-events'],
+  'timeouts':['meta-refresh','moving','motion-css','motion-reduction','autoplay'],
+  'layout':['table-header','table-caption','heading-jump','css-visual-order','fixed-width'],
+  'color-only':['color-instructions'],
+  'hover':['hover-only'],
+  'consistent':['main-landmark','placeholder-link'],
+  'touch':['touch-target'],
+  'language-quality':['vague-link','empty-heading','button-name','language-instructions']
+ };
+ const fullManualOnly = new Set(['consistent','language-quality']);
+ function makeInventory(doc){
+  const valid = (sel,attr) => [...doc.querySelectorAll(sel)].map(el => (el.getAttribute(attr)||'').trim()).filter(Boolean).slice(0,60);
+  const links=valid('a[href]','href');
+  const docs=links.filter(v=>/\.(pdf|docx?|xlsx?|pptx?|odt|ods|odp)(?:[?#]|$)/i.test(v));
+  const extScripts=valid('script[src]','src');
+  const stylesheets=valid('link[rel~="stylesheet"][href]','href');
+  const frames=valid('iframe[src],iframe[srcdoc]','src').concat([...doc.querySelectorAll('iframe[srcdoc]')].map(()=>'(inline frame)'));
+  return {documents:docs, scripts:extScripts,stylesheets,frames,media:doc.querySelectorAll('audio,video').length,charts:doc.querySelectorAll('canvas,svg,[role="img"]').length,forms:doc.querySelectorAll('form').length,interactive:doc.querySelectorAll('button,input,select,textarea,a[href],[role="button"],[tabindex]').length};
+ }
+ function extendedSourceChecks(source,map,doc,styles,Q){
+  const addRule=(key,sev,cat,title,why,fix,wcag,el,certainty='Potential')=>add(map,key,sev,cat,title,why,fix,wcag,el,certainty);
+  assetInventory=makeInventory(doc);
+  // Structural and ARIA relationships which can be detected without executing JavaScript.
+  for(const el of Q('[aria-errormessage]'))for(const id of trimmed(el.getAttribute('aria-errormessage')).split(/\s+/))if(id&&!doc.getElementById(id))
+    addRule('broken-aria-errormessage','high','Forms','Error message points to a nonexistent element','An aria-errormessage ID is missing from the page.','Point aria-errormessage at an existing message element and expose it when the field is invalid.','3.3.1, 4.1.2',el,'Detected');
+  for(const el of Q('[aria-live]'))if(!['off','polite','assertive'].includes(el.getAttribute('aria-live')))
+    addRule('invalid-aria-live','moderate','Code & ARIA','Invalid live-region setting','An unrecognized aria-live value can prevent reliable announcements.','Use aria-live="polite", "assertive", or "off" appropriately.','4.1.3',el,'Detected');
+  for(const el of Q('[role="dialog"],[role="alertdialog"],dialog'))if(!named(el,doc))
+    addRule('dialog-name','high','Interaction','Dialog is missing an accessible name','Assistive-technology users may not know the purpose of the dialog.','Connect the dialog heading through aria-labelledby or supply a concise aria-label.','4.1.2',el,'Detected');
+  for(const el of Q('[role="tab"]'))if(!el.closest('[role="tablist"]'))
+    addRule('role-tabindex','moderate','Interaction','ARIA tab appears outside a tablist','The expected tablist relationship may be incomplete.','Group tabs inside role="tablist" and verify roving focus and keyboard arrow navigation.','4.1.2',el,'Potential');
+  for(const el of Q('svg'))if(!named(el,doc)&&!el.closest('button,a[href]')&&!el.hasAttribute('aria-hidden'))
+    addRule('svg-undescribed','moderate','Images & graphics','Standalone SVG may lack a meaningful alternative','The SVG has no programmatic name. It might be decorative, but an informative SVG needs an accessible text equivalent.','For informative SVGs provide a clear accessible name and, for detailed charts, a text description or data table. Hide decorative SVGs from assistive technology.','1.1.1',el);
+  for(const el of Q('a[href^="javascript:" i],a[href=""]'))
+    addRule('js-link','moderate','Navigation','Script-dependent or empty link destination','This link may not provide expected navigation and depends on JavaScript to work.','Use a real link destination or use a native button for an action, with working keyboard operation.','2.1.1, 2.4.4',el);
+  for(const el of Q('[role="img"]'))if(!named(el,doc))
+    addRule('graph-alternative','high','Images & graphics','An image-role element has no description','Elements exposed as an image need a text equivalent, particularly when they convey a graph.','Provide a meaningful accessible name, and a linked explanation or data table for complex charts.','1.1.1',el,'Detected');
+  for(const el of Q('video track[kind="captions"],video track[kind="subtitles"]'))if(!trimmed(el.getAttribute('src')))
+    addRule('video-track-src','high','Media','A declared caption track has no source','A track without src cannot supply timed captions.','Add a working caption-track source and verify captions against the actual media.','1.2.2',el,'Detected');
+  for(const el of Q('[draggable="true"],[ondragstart],[ondrag],[ondrop],[ontouchmove],[onpointermove]'))
+    addRule('pointer-gestures','moderate','Interaction','Potential drag or pointer-gesture interaction','The source includes dragging or pointer-motion events. An accessible alternative cannot be verified from this HTML.','Provide a keyboard-friendly alternative, such as Move up/Move down buttons, and test the actual behavior.','2.5.1; 2.5.7 (WCAG 2.2)',el);
+  // Look for explicit color-dependent instructions, but do not treat this as a confirmed failure.
+  for(const el of Q('p,li,label,small')){
+    const own=[...el.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join(' ').trim();
+    if(own && /\b(click|select|choose|press|follow|look for|use)\b.{0,36}\b(red|green|blue|yellow|purple|orange)\b/i.test(own))
+      addRule('color-instructions','moderate','Visual & zoom','Instruction appears to rely on color','An instruction mentions a color as a way to identify an element. It may be fine if there are other cues.','Ensure the action can also be identified by a text label, unique shape or programmatic name.','1.4.1',el);
+  }
+  // A source-only check for hover-based menus that lack a comparable focus selector.
+  const cssNoComments=styles.replace(/\/\*[\s\S]*?\*\//g,'');
+  if(/:hover[^{}]*\{[^{}]*(?:display\s*:\s*(?:block|flex|grid)|visibility\s*:\s*visible|opacity\s*:\s*1)/i.test(cssNoComments)
+    && !/:focus-within|:focus-visible|:focus\b/i.test(cssNoComments))
+    addRule('hover-only','moderate','Navigation','Hover-revealed content may lack keyboard access','Embedded CSS appears to reveal content on hover without a focus-based companion rule. External JavaScript may change behavior.','Expose the same content on keyboard focus or activation and support dismissal and persistence.','1.4.13, 2.1.1');
+  // Detect motion/timer clues; animation alone is not a violation.
+  if(/@keyframes|\banimation\s*:|\banimation-name\s*:|\btransition\s*:/i.test(cssNoComments) && !/prefers-reduced-motion/i.test(cssNoComments))
+    addRule('motion-reduction','nice','Interaction','Motion CSS lacks an embedded reduced-motion alternative','Animations or transitions appear in embedded styles, but no prefers-reduced-motion rule was found. This is a recommendation rather than an automatic WCAG failure.','Consider a reduced-motion experience and verify whether any movement needs pause/stop controls.','2.2.2, 2.3.3 (WCAG 2.2 AAA)');
+  const js=Array.from(doc.querySelectorAll('script:not([src])')).map(n=>n.textContent||'').join('\n');
+  if(/\bsetInterval\s*\(|\bsetTimeout\s*\(/.test(js)&& /(?:innerHTML|textContent|replaceChildren|appendChild|location\.reload|location\.href)/.test(js))
+    addRule('motion-css','moderate','Interaction','Possible timed updates to page content','JavaScript source includes timers and DOM/navigation updates; their purpose and user controls are unknown.','Confirm timed content does not unexpectedly interrupt tasks and users can adjust or pause it where required.','2.2.1, 2.2.2');
+  for(const el of Q('input[required],select[required],textarea[required]')){
+    if(el.getAttribute('aria-required')==='false')
+      addRule('required-label','moderate','Forms','Conflicting required state','The field is natively required but aria-required is set to false.','Remove the conflicting aria-required value or make the required state consistent.','3.3.2, 4.1.2',el,'Detected');
+  }
+  if(/(?:\border\s*:\s*[+-]?[1-9]\d*\s*;|flex-direction\s*:\s*(?:row|column)-reverse)/i.test(cssNoComments))
+    addRule('css-visual-order','moderate','Structure','CSS may rearrange the visual order','Embedded CSS uses order or reversed flex direction, which can diverge from screen-reader and keyboard order.','Verify that the underlying DOM reading and focus order remain meaningful.','1.3.2, 2.4.3');
+ }
+ function rgba(value){
+  if(!value||value==='transparent')return [0,0,0,0];
+  const hex=value.trim().match(/^#([\da-f]{3,8})$/i);
+  if(hex){let h=hex[1];if(h.length===3||h.length===4)h=[...h].map(c=>c+c).join('');let v=[0,2,4].map(i=>parseInt(h.slice(i,i+2),16));return [...v,h.length===8?parseInt(h.slice(6,8),16)/255:1];}
+  const rgb=value.match(/rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)(?:[,\/\s]+([\d.]+))?/i);
+  return rgb?[+rgb[1],+rgb[2],+rgb[3],rgb[4]===undefined?1:+rgb[4]]:null;
+ }
+ function blend(a,b){const alpha=a[3];return [0,1,2].map(i=>Math.round(a[i]*alpha+b[i]*(1-alpha)));}
+ function backdrop(el,win){let layers=[],image=false;
+  for(let n=el;n&&n.nodeType===1;n=n.parentElement){const s=win.getComputedStyle(n);if(s.backgroundImage&&s.backgroundImage!=='none')image=true;const x=rgba(s.backgroundColor);if(x&&x[3]>0)layers.push(x);}
+  let result=[255,255,255];for(let i=layers.length-1;i>=0;i--)result=blend(layers[i],result);
+  return {color:result,image};
+ }
+ function isRendered(el,win){if(!el||!el.getBoundingClientRect)return false;for(let n=el;n&&n.nodeType===1;n=n.parentElement){const s=win.getComputedStyle(n);if(s.display==='none'||s.visibility==='hidden'||s.visibility==='collapse'||Number(s.opacity)===0||n.hasAttribute('hidden')||n.getAttribute('aria-hidden')==='true')return false;}const r=el.getBoundingClientRect();return r.width>0&&r.height>0;}
+ function renderedVisualChecks(doc,map,win,isNarrow){
+  const root=doc.body;if(!root)return;
+  if(isNarrow){
+   const width=doc.documentElement.clientWidth;
+   if(doc.documentElement.scrollWidth>width+10){
+    const culprits=[...doc.body.querySelectorAll('*')].slice(0,1600).filter(el=>{if(!isRendered(el,win))return false;const r=el.getBoundingClientRect();const s=win.getComputedStyle(el);return (r.right>width+9||r.left< -9)&&!['absolute','fixed'].includes(s.position)}).slice(0,4);
+    if(culprits.length)for(const el of culprits)add(map,'narrow-overflow','high','Visual & zoom','Potential horizontal overflow at 320 CSS pixels','The script-disabled 320px preview exceeds the viewport width. Charts and other qualifying content can have exceptions.','Make important content reflow without two-dimensional scrolling; inspect the complete running page at narrow widths.','1.4.10',el,'Potential');
+    else add(map,'narrow-overflow','high','Visual & zoom','Potential horizontal overflow at 320 CSS pixels','The 320px preview exceeds the viewport width.','Check responsive layouts, fixed dimensions and any exceptions for specialized content.','1.4.10',null,'Potential');
+   }
+   return;
+  }
+  let textCount=0;
+  const walk=doc.createTreeWalker(root,win.NodeFilter.SHOW_TEXT);
+  while(walk.nextNode()&&textCount<2000){const node=walk.currentNode; if(!trimmed(node.nodeValue))continue;const el=node.parentElement;if(!el||el.closest('script,style,noscript,template,svg,select,option')||!isRendered(el,win))continue;
+   textCount++;const s=win.getComputedStyle(el);const fg=rgba(s.color);if(!fg||fg[3]===0)continue;
+   const bg=backdrop(el,win);if(bg.image)continue;const fgRgb=blend(fg,bg.color);const ratio=contrastRatio(fgRgb,bg.color);
+   const px=parseFloat(s.fontSize)||16,weight=Number(s.fontWeight)||((s.fontWeight==='bold')?700:400);
+   const min=(px>=24||(px>=18.66&&weight>=700))?3:4.5;
+   if(ratio+0.02<min)add(map,'rendered-contrast','high','Visual & zoom','Rendered text has insufficient contrast in the safe preview',`An evaluated text/background pair is approximately ${ratio.toFixed(2)}:1, below the ${min}:1 criterion. Only embedded CSS at the default state was applied; external styles and imagery are excluded.`,'Increase the foreground/background contrast and retest all states on the running site.','1.4.3',el,'Potential');
+  }
+  // Author-styled pointer controls are a useful clue, but CSS alone does not establish a failure.
+  for(const el of [...root.querySelectorAll('body *')].slice(0,1200)){
+   if(!isRendered(el,win)||el.matches('button,a[href],input,select,textarea,summary,[role="button"],[role="link"]'))continue;
+   const st=win.getComputedStyle(el);
+   if(st.cursor==='pointer' && !el.hasAttribute('tabindex') && !el.closest('button,a[href],label'))
+     add(map,'cursor-pointer','moderate','Interaction','Custom pointer-targeted element may lack keyboard support','An element shows a pointer cursor but is not a native control and lacks tabindex. It could be a decorative style rather than an interactive feature.','If interactive, use a native button or link or implement the required role, focus, and keyboard support.','2.1.1, 4.1.2',el,'Potential');
+  }
+  // Detect visible clipped text. Clipping can be intentional, and responsive states differ.
+  for(const el of [...root.querySelectorAll('p,li,h1,h2,h3,h4,h5,h6,label,button,div,span')].slice(0,1200)){
+    if(!isRendered(el,win)||!trimmed(el.textContent)||el.children.length>4)continue;
+    const st=win.getComputedStyle(el);if(!['hidden','clip'].includes(st.overflowX)&&!['hidden','clip'].includes(st.overflowY))continue;
+    if(el.scrollWidth>el.clientWidth+4 || el.scrollHeight>el.clientHeight+4)
+      add(map,'text-clipping','moderate','Visual & zoom','Visible text may be clipped by overflow styles','A text element has overflow clipped and its contents exceed the box in the safe preview. Truncation may be intentional but important text must remain available.','Allow text to wrap or expand, or provide another accessible way to read the complete text.','1.4.4, 1.4.10',el,'Potential');
+  }
+  // UI component contrast: screen only indicators that rely on borders, with small visual differences.
+  for(const el of [...root.querySelectorAll('input:not([type="hidden"]),select,textarea')].slice(0,400)){
+   if(!isRendered(el,win))continue;const s=win.getComputedStyle(el);const b=backdrop(el,win);if(b.image)continue;
+   const border=rgba(s.borderTopColor);if(!border||Number.parseFloat(s.borderTopWidth)<1||s.borderTopStyle==='none')continue;
+   const borderRGB=blend(border,b.color);
+   if(contrastRatio(borderRGB,b.color)<2.98 && contrastRatio(b.color,backdrop(el.parentElement,win).color)<2.98)
+    add(map,'control-border-contrast','moderate','Visual & zoom','Form-field boundary may have insufficient contrast','The input edge and adjacent background appear below 3:1 contrast in the safe preview. Other visual cues or state differences may change the outcome.','Check whether the field boundary is visually discernible at 3:1 against adjacent colors and adjust if necessary.','1.4.11',el,'Potential');
+  }
+  // WCAG 2.2 target size: do not report isolated small targets, inline prose links or unmodified native radio/checkbox.
+  const targetEls=[...root.querySelectorAll('a[href],button,input:not([type="hidden"]),select,textarea,[role="button"],[role="link"],[role="tab"]')].slice(0,500).filter(el=>isRendered(el,win));
+  const targets=targetEls.map(el=>({el,rect:el.getBoundingClientRect(),style:win.getComputedStyle(el)}));
+  for(const t of targets){const r=t.rect;
+   if(r.width>=24&&r.height>=24)continue;
+   const tag=t.el.tagName.toLowerCase();const type=(t.el.getAttribute('type')||'').toLowerCase();
+   if(['checkbox','radio','color','date','range'].includes(type)&&!t.el.hasAttribute('style')&&!t.el.className)continue;
+   if(tag==='a'&&t.style.display==='inline'&&t.el.parentElement?.tagName.toLowerCase()==='p')continue;
+   const cx=(r.left+r.right)/2,cy=(r.top+r.bottom)/2;
+   const close=targets.some(o=>{if(o===t)return false;const b=o.rect;
+     if(b.width<24||b.height<24)return Math.hypot(cx-(b.left+b.right)/2,cy-(b.top+b.bottom)/2)<23.9;
+     const dx=Math.max(b.left-cx,0,cx-b.right),dy=Math.max(b.top-cy,0,cy-b.bottom);return Math.hypot(dx,dy)<11.9;
+   });
+   if(close)add(map,'touch-target','nice','Interaction','Closely spaced target smaller than 24 × 24 CSS pixels',`The safe preview measured an interactive target at about ${Math.round(r.width)} × ${Math.round(r.height)} CSS pixels, near another target. WCAG 2.2 includes spacing and other exceptions.`,'Increase the effective target area or spacing; check exemptions and measure the running page.','2.5.8 (WCAG 2.2 AA)',t.el,'Potential');
+  }
+ }
+ function safePreviewHtml(source){
+  const doc=new DOMParser().parseFromString(source,'text/html');
+  doc.querySelectorAll('script,noscript,iframe,object,embed,base,link,meta[http-equiv],form[action],source').forEach(n=>{
+   if(n.matches('form[action]'))n.removeAttribute('action');else n.remove();
+  });
+  for(const el of doc.querySelectorAll('*')){
+   for(const attr of [...el.attributes]){
+    const name=attr.name.toLowerCase();
+    if(name.startsWith('on') || ['src','srcset','poster','href','xlink:href','formaction','action','background','data'].includes(name) && !['a','use'].includes(el.tagName.toLowerCase()) || name==='style'&&/url\s*\(/i.test(attr.value)){
+      if(name==='style')el.setAttribute('style',attr.value.replace(/url\s*\([^)]*\)/gi,'none'));else el.removeAttribute(attr.name);
+    }
+   }
+  }
+  doc.querySelectorAll('style').forEach(st=>{st.textContent=(st.textContent||'').replace(/@import\s+(?:url\s*\()?[^;]*;/gi,'').replace(/url\s*\([^)]*\)/gi,'none');});
+  const csp=doc.createElement('meta');csp.setAttribute('http-equiv','Content-Security-Policy');csp.setAttribute('content',"default-src 'none'; script-src 'none'; connect-src 'none'; style-src 'unsafe-inline'; img-src data:; font-src 'none'; form-action 'none'");doc.head.insertBefore(csp,doc.head.firstChild);
+  return '<!doctype html>'+doc.documentElement.outerHTML;
+ }
+ function probePreview(source){return new Promise(resolve=>{
+  if(activeProbeCancel)activeProbeCancel();
+  const frame=$('probeFrame');probeState={rendered:false,wide:false,narrow:false,error:''};
+  if(!frame){resolve([]);return;}
+  let completed=false;const finish=result=>{if(completed)return;completed=true;frame.onload=null;clearTimeout(timer);if(activeProbeCancel===cancelProbe)activeProbeCancel=null;frame.srcdoc='';resolve(result);};
+  const cancelProbe=()=>finish([]);activeProbeCancel=cancelProbe;
+  const timer=setTimeout(()=>{probeState.error='Rendered screening timed out';finish([]);},7500);
+  frame.style.width='1280px';
+  frame.onload=()=>{try{
+    const doc=frame.contentDocument;const win=frame.contentWindow;
+    if(!doc||!win||!doc.body)throw new Error('Cannot access sandboxed preview');
+    const m=new Map();renderedVisualChecks(doc,m,win,false);probeState.wide=true;
+    frame.style.width='320px';void doc.documentElement.offsetWidth;renderedVisualChecks(doc,m,win,true);probeState.narrow=true;
+    probeState.rendered=true;finish([...m.values()]);
+   }catch(e){probeState.error=String(e?.message||e);finish([]);}};
+  try{frame.srcdoc=safePreviewHtml(source);}catch(e){probeState.error=String(e?.message||e);finish([]);}
+ });}
+ function renderCoverage(){
+  if(!$('coverageList'))return;
+  const names={documents:'Document links',scripts:'Referenced scripts',stylesheets:'Referenced stylesheets',frames:'Embedded frames'};
+  const inventory=$('assetInventory');inventory.replaceChildren();
+  for(const [key,label] of Object.entries(names)){
+    const entries=assetInventory[key]||[];const card=addEl('div','inventory-card');card.append(addEl('strong','',label+' ('+entries.length+')'));
+    if(entries.length){const ul=addEl('ul');for(const item of entries.slice(0,12))ul.append(addEl('li','',item.length>150?item.slice(0,150)+'…':item));if(entries.length>12)ul.append(addEl('li','','+'+(entries.length-12)+' more'));card.append(ul);}
+    else card.append(addEl('p','', 'None detected in this file.'));
+    inventory.append(card);
+  }
+  const coverage=$('coverageList');coverage.replaceChildren();
+  for(const t of manualTests){const item=addEl('div','coverage-row');const body=addEl('div');
+   body.append(addEl('strong','',t.title));
+   const clues=(relatedRules[t.id]||[]).reduce((a,key)=>a+staticFindings.filter(f=>f.key===key).length,0);
+   const docExtra=t.id==='documents'?assetInventory.documents.length:t.id==='third-party'?assetInventory.frames.length+assetInventory.scripts.length:0;
+   const status=fullManualOnly.has(t.id)?'Limited clues only':t.id==='documents'?'Linked files inventoried':t.id==='third-party'?'Dependencies inventoried':t.id==='screen-reader'?'Markup screened; AT test required':t.id==='contrast-text'?'Embedded CSS screened':t.id==='zoom'?'320px preview screened':'Partially screened';
+   body.append(addEl('p','',status+(clues?' · '+clues+' related finding type'+(clues===1?'':'s'):'')+(docExtra?' · '+docExtra+' assets':'')+'.'));
+   item.append(body);item.append(addEl('span','coverage-mark',clues?'Flags found':status));coverage.append(item);
+  }
+  $('visualProbeStatus').textContent=probeState.rendered?'Safe visual screening completed at 1280px and 320px (embedded styles only).':'Source checks completed; visual screening unavailable'+(probeState.error?' ('+probeState.error+')':'')+'.';
+ }
+
  function sampleHtml(){return `<!doctype html><html><head><meta name="viewport" content="width=device-width, maximum-scale=1, user-scalable=no"><title></title><style>body{color:#aaa;background-color:#fff}.demo:focus{outline:none}</style></head><body><div onclick="openTool()">Launch activity</div><h1>Welcome</h1><h3>Quick links</h3><a href="#">Click here</a><a href="/guide"></a><img src="chart.png"><input placeholder="Email address"><button aria-label=""></button><iframe src="demo.html"></iframe><table><tr><td>Year</td><td>Value</td></tr><tr><td>2025</td><td>50</td></tr></table><video src="intro.mp4"></video><div id="same"></div><p id="same">Example content</p></body></html>`;}
  function manualFindings(){return manualTests.filter(t=>manualStatus[t.id]==='fail').map(t=>({key:'manual-'+t.id,severity:t.severity,category:t.category,title:t.title,why:'Manual review marked this requirement as needing correction. '+t.check,fix:t.fix,wcag:t.wcag,certainty:'Manually confirmed',origin:'Manual',elements:[],count:1}));}
  function getAllFindings(){return [...staticFindings,...manualFindings()];}
- function scoreFindings(findings){let score=100;for(const f of findings)score-=severityPoints[f.severity]*(1+Math.min(f.count-1,5)*.19);score=Math.max(0,Math.round(score));if(findings.some(f=>f.severity==='critical'))score=Math.min(score,49);else if(findings.some(f=>f.severity==='high'))score=Math.min(score,79);return score;}
+ function scoreFindings(findings){const scored=findings.filter(f=>f.origin==='Manual'||f.certainty!=='Potential');let score=100;for(const f of findings){const confidence=f.certainty==='Potential'?0.4:1;score-=severityPoints[f.severity]*confidence*(1+Math.min(f.count-1,5)*.19);}score=Math.max(0,Math.round(score));if(scored.some(f=>f.severity==='critical'))score=Math.min(score,49);else if(scored.some(f=>f.severity==='high'))score=Math.min(score,79);else if(findings.some(f=>f.severity==='critical'))score=Math.min(score,79);else if(findings.some(f=>f.severity==='high'))score=Math.min(score,89);return score;}
  function addEl(tag,cls,text){const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n;}
  function showIssues(){const list=getAllFindings();const search=trimmed($('searchIssues').value).toLowerCase(), sev=$('filterSeverity').value, cat=$('filterCategory').value, dir=$('sortIssues').value;
    const filtered=list.filter(f=>(sev==='all'||f.severity===sev)&&(cat==='all'||f.category===cat)&&(!search||[f.title,f.why,f.fix,f.wcag,f.category].join(' ').toLowerCase().includes(search)));
    filtered.sort((a,b)=>(dir==='low'?1:-1)*(sevOrder[a.severity]-sevOrder[b.severity])||a.title.localeCompare(b.title));
    const container=$('issues');container.replaceChildren();$('visibleCount').textContent=filtered.length+' of '+list.length+' finding types';
-   if(!filtered.length){container.append(addEl('div','empty',list.length?'No findings match these filters. Change or clear your filters.':'No issues detected by static checks or marked as failed manually. This does not establish WCAG conformance.'));return;}
+   if(!filtered.length){container.append(addEl('div','empty',list.length?'No findings match these filters. Change or clear your filters.':'No detected findings from available source and preview checks. Manual testing is still required; this is not a pass or WCAG certification.'));return;}
    for(const f of filtered){const article=addEl('article','finding severity-'+f.severity);const strip=addEl('div','strip');strip.setAttribute('aria-hidden','true');article.append(strip);const content=addEl('div','finding-content');article.append(content);
      const badgeBox=addEl('div','badges');badgeBox.append(addEl('span','tag tag-'+f.severity,sevLabels[f.severity]));badgeBox.append(addEl('span','tag tag-outline',f.origin==='Manual'?'Manual test':f.certainty));badgeBox.append(addEl('span','tag tag-outline',f.category));content.append(badgeBox);
      content.append(addEl('h3','',f.title));content.append(addEl('p','',f.why));const fix=addEl('div','fix-box');fix.append(addEl('strong','', 'Recommended correction'));fix.append(addEl('span','',f.fix));content.append(fix);
@@ -208,25 +441,39 @@
  function updateSummary(){const findings=getAllFindings();const score=scoreFindings(findings);$('scoreNumber').textContent=score;$('scoreProgress').value=score;
   const grade=score>=90?'Few detectable barriers':score>=75?'Attention needed':score>=50?'Substantial remediation needed':'Urgent remediation needed';$('scoreDescriptor').textContent='Provisional readiness • '+grade;
   for(const key of Object.keys(sevOrder))$(key+'Count').textContent=findings.filter(f=>f.severity===key).length;
-  const critical=findings.filter(f=>f.severity==='critical').length;const high=findings.filter(f=>f.severity==='high').length;const instanceCount=staticFindings.reduce((s,f)=>s+f.count,0);
-  $('summarySentence').textContent=findings.length+' finding type'+(findings.length===1?'':'s')+' • '+instanceCount+' static occurrence'+(instanceCount===1?'':'s')+' • '+critical+' critical • '+high+' high. ';
+  const critical=findings.filter(f=>f.severity==='critical').length;const high=findings.filter(f=>f.severity==='high').length;const potential=findings.filter(f=>f.certainty==='Potential').length;const instanceCount=staticFindings.reduce((s,f)=>s+f.count,0);
+  $('summarySentence').textContent=findings.length+' finding type'+(findings.length===1?'':'s')+' • '+instanceCount+' static occurrence'+(instanceCount===1?'':'s')+' • '+critical+' critical • '+high+' high • '+potential+' potential (discounted in score). ';
   const reviewed=manualTests.filter(t=>manualStatus[t.id]&&manualStatus[t.id]!=='untested').length;$('manualProgress').textContent=reviewed+' / '+manualTests.length+' manual checks reviewed';
   const cats=[...new Set(findings.map(f=>f.category))].sort();const select=$('filterCategory');const old=select.value;select.replaceChildren(new Option('All areas','all'));for(const c of cats)select.add(new Option(c,c));select.value=cats.includes(old)?old:'all';showIssues();}
  function renderManual(){const list=$('manualList');list.replaceChildren();for(const t of manualTests){const item=addEl('div','manual-item');item.id='manual-card-'+t.id;
-   const badges=addEl('div','badges');badges.append(addEl('span','tag tag-'+t.severity,sevLabels[t.severity]));badges.append(addEl('span','tag tag-outline',t.category));item.append(badges);item.append(addEl('h3','',t.title));item.append(addEl('p','',t.check));const label=addEl('label','', 'Review outcome');label.htmlFor='manual-'+t.id;item.append(label);
+   const badges=addEl('div','badges');badges.append(addEl('span','tag tag-'+t.severity,sevLabels[t.severity]));badges.append(addEl('span','tag tag-outline',t.category));item.append(badges);item.append(addEl('h3','',t.title));item.append(addEl('p','',t.check));const related=(relatedRules[t.id]||[]).filter(key=>staticFindings.some(f=>f.key===key)).length;
+   const assist=fullManualOnly.has(t.id)?'Only limited clues from a single HTML page.':t.id==='documents'?'Linked resources are inventoried above.':t.id==='third-party'?'External services and embeds are inventoried above.':'Automated source/style checks partially cover this topic.';
+   item.append(addEl('p','manual-assist',assist+(related?' Related automated finding types: '+related+'.':' No flags here does not mean a pass.')));
+   const label=addEl('label','', 'Review outcome');label.htmlFor='manual-'+t.id;item.append(label);
    const select=addEl('select');select.id='manual-'+t.id;for(const [val,name] of [['untested','Not tested'],['pass','Passed'],['fail','Needs correction'],['na','Not applicable']])select.add(new Option(name,val));select.value=manualStatus[t.id]||'untested';select.addEventListener('change',()=>{manualStatus[t.id]=select.value;item.classList.toggle('manual-fail',select.value==='fail');item.classList.toggle('manual-pass',select.value==='pass');updateSummary();});
    item.classList.toggle('manual-fail',select.value==='fail');item.classList.toggle('manual-pass',select.value==='pass');item.append(select);list.append(item);}}
- function beginAnalysis(source,name,byteLength){const result=inspect(source);currentFile=name;staticFindings=result;manualStatus={};fileDetails={name,bytes:byteLength,analyzedElements:analyzedNodes,limited:maxTruncated,runAt:new Date().toISOString()};
-   $('report').hidden=false;$('reportTitle').textContent='Accessibility audit results';$('fileMeta').textContent=name+' • '+analyzedNodes.toLocaleString()+' HTML elements inspected'+(maxTruncated?' (first 20,000 elements only)':'')+' • '+new Date().toLocaleString();
-   $('searchIssues').value='';$('filterSeverity').value='all';$('sortIssues').value='low';renderManual();updateSummary();$('status').classList.remove('error');$('status').textContent='Analysis complete: '+result.length+' automated finding types. Review the results and test any unchecked requirements manually.';$('reportTitle').scrollIntoView({behavior:'smooth',block:'start'});}
+ async function beginAnalysis(source,name,byteLength){
+   const myScan=++scanId;currentFile=name;manualStatus={};fileDetails={name,bytes:byteLength,runAt:new Date().toISOString(),analyzedElements:0,limited:false};
+   $('status').classList.remove('error');$('status').textContent='Inspecting markup and embedded styles in a safe preview…';
+   const base=inspect(source);staticFindings=base;fileDetails.analyzedElements=analyzedNodes;fileDetails.limited=maxTruncated;
+   $('report').hidden=false;$('reportTitle').textContent='Accessibility audit results';
+   $('fileMeta').textContent=name+' • '+analyzedNodes.toLocaleString()+' HTML elements inspected'+(maxTruncated?' (first 20,000 elements only)':'')+' • '+new Date().toLocaleString();
+   $('searchIssues').value='';$('filterSeverity').value='all';$('sortIssues').value='low';
+   probeState={rendered:false,wide:false,narrow:false,error:''};renderManual();renderCoverage();updateSummary();
+   const visual=await probePreview(source);if(myScan!==scanId)return;
+   staticFindings=[...base,...visual];fileDetails.preview=structuredClone(probeState);
+   renderManual();renderCoverage();updateSummary();
+   $('status').textContent='Analysis complete: '+staticFindings.length+' automated finding types ('+visual.length+' from rendered screening). Findings marked Potential need manual verification.';
+   $('reportTitle').scrollIntoView({behavior:'smooth',block:'start'});
+ }
  async function handleFile(file){if(!file)return;const lower=file.name.toLowerCase();if(!/\.html?$/.test(lower)){setError('Please choose a file ending in .html or .htm.');return;}if(file.size>8*1024*1024){setError('This file is larger than 8 MB. Export a smaller page or simplify the HTML for analysis.');return;}try{$('status').textContent='Reading and checking '+file.name+'…';const html=await file.text();beginAnalysis(html,file.name,file.size);}catch(e){setError('Unable to analyze the file: '+(e?.message||'unknown error'));}}
  function setError(msg){$('status').classList.add('error');$('status').textContent=msg;}
- function reportData(){return {tool:'Accessibility Audit Studio',version:'1.0',standard:'WCAG 2.1 A/AA static checks and manual review (advisory, not certification)',file:fileDetails,score:scoreFindings(getAllFindings()),sort:'nice → moderate → high → critical',findings:getAllFindings().sort((a,b)=>sevOrder[a.severity]-sevOrder[b.severity]||a.title.localeCompare(b.title)),manualReview:manualTests.map(t=>({...t,status:manualStatus[t.id]||'untested'})),limitations:['Not a WCAG compliance certification','Scripts are not executed','External stylesheets are not loaded','Embedded/linked PDFs and other resources are not inspected','Full keyboard, screen reader and computed visual testing must be performed on the running page']};}
+ function reportData(){return {tool:'Accessibility Audit Studio',version:'2.0',standard:'WCAG 2.1 A/AA source checks, embedded-style safe preview, WCAG 2.2 advisory checks and manual review (not certification)',assets:assetInventory,preview:probeState,file:fileDetails,score:scoreFindings(getAllFindings()),sort:'nice → moderate → high → critical',findings:getAllFindings().sort((a,b)=>sevOrder[a.severity]-sevOrder[b.severity]||a.title.localeCompare(b.title)),manualReview:manualTests.map(t=>({...t,status:manualStatus[t.id]||'untested'})),limitations:['Not a WCAG compliance certification','Scripts are not executed','External stylesheets are not loaded; JavaScript in uploaded pages is never executed','Embedded/linked PDFs and other resources are not inspected','Computed styles are assessed only in script-disabled preview with external resources blocked; full keyboard, screen reader, zoom and rendered-state testing must be performed on the real page']};}
  function downloadFile(body,mime,suffix){const blob=new Blob([body],{type:mime});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=(currentFile.replace(/\.html?$/i,'').replace(/[^a-zA-Z0-9._-]/g,'_')||'page')+'-accessibility-audit.'+suffix;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
  function csvCell(value){return '"'+String(value??'').replace(/"/g,'""')+'"';}
- function exportCsv(){const rows=[['Severity','Finding','Area','Detection','Affected instances','Why it matters','Recommended correction','WCAG reference','Example selectors']];for(const f of reportData().findings)rows.push([sevLabels[f.severity],f.title,f.category,f.origin==='Manual'?'Manual finding':f.certainty,f.count,f.why,f.fix,f.wcag,f.elements.map(e=>e.selector).join(' | ')]);
+ function exportCsv(){const rows=[['Severity','Finding','Area','Detection','Affected instances','Why it matters','Recommended correction','WCAG reference','Example selectors']];for(const f of reportData().findings)rows.push([sevLabels[f.severity],f.title,f.category,f.origin==='Manual'?'Manually confirmed':f.certainty,f.count,f.why,f.fix,f.wcag,f.elements.map(e=>e.selector).join(' | ')]);
    downloadFile('\ufeff'+rows.map(row=>row.map(csvCell).join(',')).join('\r\n'),'text/csv;charset=utf-8','csv');}
- $('chooseBtn').addEventListener('click',()=>$('fileInput').click());$('fileInput').addEventListener('change',e=>handleFile(e.target.files[0]));$('sampleBtn').addEventListener('click',()=>beginAnalysis(sampleHtml(),'example-inaccessible-page.html',new Blob([sampleHtml()]).size));
+ $('chooseBtn').addEventListener('click',()=>$('fileInput').click());$('fileInput').addEventListener('change',e=>{const file=e.target.files[0];e.target.value='';handleFile(file);});$('sampleBtn').addEventListener('click',()=>beginAnalysis(sampleHtml(),'example-inaccessible-page.html',new Blob([sampleHtml()]).size));
  for(const event of ['dragenter','dragover'])$('dropZone').addEventListener(event,e=>{e.preventDefault();$('dropZone').classList.add('drag-over');});
  for(const event of ['dragleave','drop'])$('dropZone').addEventListener(event,e=>{e.preventDefault();$('dropZone').classList.remove('drag-over');});
  $('dropZone').addEventListener('drop',e=>handleFile(e.dataTransfer.files[0]));
