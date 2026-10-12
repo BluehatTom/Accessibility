@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Accessibility Audit & Repair Studio — HTML File Checker</title>
+  <title>Accessibility Audit Studio — HTML File Checker</title>
   <style>
     :root { color-scheme: light; --red:#c41230; --red-dark:#960f25; --ink:#192333; --muted:#526071; --border:#d7dfe7; --subtle:#f3f6f9; --white:#fff; --blue:#175cd3; --green:#16724b; --focus:#1262bb; --shadow:0 12px 32px rgba(27,43,65,.075); }
     *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;color:var(--ink);background:#f8fafc;font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;line-height:1.5}
@@ -48,24 +48,20 @@
     #probeFrame{position:fixed;left:-100000px;top:-100000px;width:1280px;height:900px;border:0;pointer-events:none;visibility:visible;z-index:-1}
     @media(max-width:800px){.coverage-grid,.inventory-grid{grid-template-columns:1fr}.coverage-row{flex-wrap:wrap}.coverage-mark{max-width:none}}
     @media print{.coverage-box{break-inside:auto}.coverage-row,.inventory-card{break-inside:avoid}#probeFrame{display:none!important}}
-
-    .repair-shell{padding:20px}.repair-intro{margin:0 0 14px;color:#42556a;font-size:.91rem}.repair-actions{display:flex;flex-wrap:wrap;gap:9px;margin:12px 0}.repair-list{display:grid;gap:8px;margin-top:12px}.repair-item{background:#fbfcfe;border:1px solid #d7e0ea;border-radius:9px;padding:12px}.repair-item label{font-size:.91rem;font-weight:750;display:flex;gap:10px;align-items:flex-start}.repair-item input[type=checkbox]{width:18px;height:18px;flex:none;margin-top:3px}.repair-item p{margin:5px 0 0 28px;font-size:.82rem;color:#516174}.repair-item input[type=text],.repair-item select{width:100%;max-width:660px;min-height:38px;border:1px solid #9fb0c4;border-radius:7px;padding:7px 10px;font:inherit;margin:8px 0 0 28px}.repair-item .repair-warning{color:#895113}.repair-mode{font-weight:800;letter-spacing:.02em;font-size:.71rem;border-radius:4px;background:#e9f3ff;color:#124c84;padding:2px 6px}.repair-mode.assisted{background:#fff0cf;color:#765007}.repair-preview{border-top:1px solid #dce4ed;margin-top:18px;padding-top:14px}.repair-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.repair-head h3{margin:0 0 9px;font-size:1.05rem}.repair-columns{display:grid;grid-template-columns:1fr 1fr;gap:10px}.repair-columns label{display:block;font-size:.8rem;font-weight:750;margin-bottom:5px}.repair-columns textarea{background:#f5f8fc;border:1px solid #c8d4e3;border-radius:9px;width:100%;height:210px;resize:vertical;font:12px/1.45 ui-monospace,SFMono-Regular,Consolas,monospace;color:#172c44;padding:11px}.repair-log{font-size:.84rem;color:#36495f;padding-left:23px;max-height:150px;overflow:auto}.repair-log:empty{display:none}
-    @media(max-width:680px){.repair-columns{grid-template-columns:1fr}.repair-shell{padding:13px}}
-    @media print{#repairSection{display:none!important}}
   </style>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
 <div class="topline"></div>
-<header class="topbar"><div class="wrap nav"><div class="brand"><span class="brand-mark" aria-hidden="true">A11Y</span><span>Accessibility Audit &amp; Repair Studio</span></div><span class="nav-note">Private • Local HTML analysis</span></div></header>
+<header class="topbar"><div class="wrap nav"><div class="brand"><span class="brand-mark" aria-hidden="true">A11Y</span><span>Accessibility Audit Studio</span></div><span class="nav-note">Private • Local HTML analysis</span></div></header>
 <main id="main" class="wrap">
-  <div class="hero"><p class="eyebrow">Website accessibility review</p><h1>Audit accessibility, preview repairs, and verify results.</h1><p class="intro">Upload HTML to identify issues, preview safe and assisted corrections, re-audit the modified copy, and export an accessible change record. Your original stays available. No server or account required.</p></div>
+  <div class="hero"><p class="eyebrow">Website accessibility review</p><h1>Examine more of your HTML accessibility automatically.</h1><p class="intro">Upload an HTML file to receive a prioritized correction list, an estimated accessibility readiness score, and a safe rendered-style screening, linked-asset inventory, and targeted WCAG manual-review checklist. No server or account needed.</p></div>
   <section class="panel upload-panel" aria-labelledby="upload-title">
     <div class="upload-layout"><div id="dropZone" class="dropzone"><div><div class="drop-icon" aria-hidden="true">⇧</div><h2 id="upload-title">Upload an HTML file</h2><p>Drag and drop a <strong>.html</strong> or <strong>.htm</strong> file here, or choose one below.</p><div class="actions"><button class="btn btn-primary" id="chooseBtn" type="button">Choose HTML file</button><button class="btn" id="sampleBtn" type="button">Try example file</button></div><input id="fileInput" type="file" accept=".html,.htm,text/html" hidden></div></div>
-      <div class="upload-info"><h2>What this checker does</h2><ul><li>Checks HTML, ARIA, keyboard clues, forms, embedded CSS contrast, responsive overflow, and touch targets.</li><li>Ranks fixes from <strong>Nice to fix</strong> to <strong>Critical</strong>.</li><li>Provides targeted correction guidance and affected elements.</li><li>Shows which of the 20 manual-review areas were partially screened automatically.</li><li>Preview, approve, and export targeted repairs. Re-audit the patched HTML.</li></ul></div></div>
+      <div class="upload-info"><h2>What this checker does</h2><ul><li>Checks HTML, ARIA, keyboard clues, forms, embedded CSS contrast, responsive overflow, and touch targets.</li><li>Ranks fixes from <strong>Nice to fix</strong> to <strong>Critical</strong>.</li><li>Provides targeted correction guidance and affected elements.</li><li>Shows which of the 20 manual-review areas were partially screened automatically.</li></ul></div></div>
     <p id="status" class="status" role="status" aria-live="polite">Choose a file to begin.</p>
   </section>
-  <div class="notice"><strong>Scope:</strong> This is a source and safe-render preview checker, not an ADA certification tool. Uploaded JavaScript never runs. A script-disabled sandbox preview checks embedded styles at two widths; external assets are blocked, so rendered findings are estimates. External stylesheets, linked documents, real application behavior and full WCAG conformance still require separate testing. All analysis and repairs happen in your browser; your file is not uploaded to a server. Repairs can modify page markup and appearance, so retest the running application.</div>
+  <div class="notice"><strong>Scope:</strong> This is a source and safe-render preview checker, not an ADA certification tool. Uploaded JavaScript never runs. A script-disabled sandbox preview checks embedded styles at two widths; external assets are blocked, so rendered findings are estimates. External stylesheets, linked documents, real application behavior and full WCAG conformance still require separate testing. All analysis happens in your browser; your file is not uploaded to a server.</div>
   <div id="report" hidden>
     <div class="report-header"><div><h2 id="reportTitle">Accessibility audit results</h2><p class="file-line" id="fileMeta"></p></div><div class="actions report-actions"><button class="btn btn-small" id="csvBtn" type="button">Export CSV</button><button class="btn btn-small" id="jsonBtn" type="button">Export JSON</button><button class="btn btn-small" id="printBtn" type="button">Print / PDF</button></div></div>
     <section class="summary" aria-label="Accessibility score and issue severity totals">
@@ -76,20 +72,6 @@
       <div class="score-card sev-crit"><div class="stat-label">Critical</div><div id="criticalCount" class="severity-count">0</div><div class="stat-sub">Finding types</div></div>
     </section>
     <div class="explain-bar"><strong id="summarySentence"></strong><span> The score is a heuristic based on detectable findings and marked manual failures; uncertain potential findings receive a smaller weighting (40%) until confirmed. Scores are not compliance grades. An absence of findings does not establish legal compliance. Manual checks and testing the actual running website remain necessary.</span></div>
-
-    <section class="section" id="repairSection" aria-labelledby="repairHeading">
-      <div class="section-heading"><div><h2 id="repairHeading">Repair Center</h2><p>Select only appropriate corrections. Review changes before downloading or running the next audit.</p></div><span id="repairCount" class="manual-progress" role="status">0 suggestions</span></div>
-      <div class="panel repair-shell">
-        <p class="repair-intro">Safe fixes are selected by default; assisted fixes need your approval and often descriptive text. Selected changes affect a <strong>copy</strong>, not the original. A patched document must still be functionally tested.</p>
-        <div class="repair-actions"><button type="button" class="btn btn-small" id="selectSafeBtn">Select safe fixes</button><button type="button" class="btn btn-small" id="clearFixesBtn">Clear selections</button><button type="button" class="btn btn-small" id="restoreOriginalBtn">Restore original &amp; re-audit</button></div>
-        <div id="repairList" class="repair-list"></div>
-        <div class="repair-preview"><div class="repair-head"><h3>Code preview</h3><span id="repairPreviewCount" class="manual-progress">No changes selected</span></div>
-          <div class="repair-columns"><div><label for="repairBefore">Current HTML</label><textarea id="repairBefore" readonly spellcheck="false"></textarea></div><div><label for="repairAfter">Patched HTML preview</label><textarea id="repairAfter" readonly spellcheck="false"></textarea></div></div>
-          <p id="repairFeedback" class="status" role="status" aria-live="polite">Select a correction to preview the patched HTML.</p><ol id="repairChangeLog" class="repair-log"></ol>
-          <div class="repair-actions"><button type="button" id="downloadPatchedBtn" class="btn btn-primary" disabled>Download patched HTML</button><button type="button" id="reauditPatchedBtn" class="btn" disabled>Apply to copy &amp; re-audit</button><button type="button" id="downloadOriginalBtn" class="btn">Download original HTML</button></div>
-        </div>
-      </div>
-    </section>
     <section class="panel coverage-box" aria-labelledby="coverageHeading">
       <h3 id="coverageHeading">Automated screening across the 20 review areas</h3>
       <p id="visualProbeStatus" class="probe-status" role="status">Waiting for an HTML file.</p>
@@ -115,7 +97,7 @@
  const sevOrder={nice:0,moderate:1,high:2,critical:3};
  const sevLabels={nice:'Nice to fix',moderate:'Moderate',high:'High',critical:'Critical'};
  const severityPoints={nice:2,moderate:5,high:11,critical:22};
- let currentFile='', originalFileName='', originalSource='', activeSource='', repairCandidates=[], previewPatched='', repairChangeHistory=[], analyzedNodes=0, maxTruncated=false, staticFindings=[], manualStatus={}, fileDetails={}, scanId=0;
+ let currentFile='', analyzedNodes=0, maxTruncated=false, staticFindings=[], manualStatus={}, fileDetails={}, scanId=0;
  const manualTests=[
   {id:'complete-keyboard',severity:'critical',category:'Interaction',title:'Complete all tasks using only a keyboard',wcag:'2.1.1, 2.1.2',check:'Use Tab, Shift+Tab, Enter, Space, arrows and Escape to complete every primary task. Check there are no keyboard traps.',fix:'Make all interactions work from a keyboard, use native controls wherever possible, and remove keyboard traps.'},
   {id:'screen-reader',severity:'critical',category:'Code & ARIA',title:'Test the full experience with a screen reader',wcag:'1.3.1, 4.1.2, 4.1.3',check:'Test with NVDA, JAWS, or VoiceOver. Verify logical reading order, control names, changed values and status announcements.',fix:'Correct semantic markup, accessible names and roles, focus management and live region announcements.'},
@@ -471,7 +453,7 @@
    const select=addEl('select');select.id='manual-'+t.id;for(const [val,name] of [['untested','Not tested'],['pass','Passed'],['fail','Needs correction'],['na','Not applicable']])select.add(new Option(name,val));select.value=manualStatus[t.id]||'untested';select.addEventListener('change',()=>{manualStatus[t.id]=select.value;item.classList.toggle('manual-fail',select.value==='fail');item.classList.toggle('manual-pass',select.value==='pass');updateSummary();});
    item.classList.toggle('manual-fail',select.value==='fail');item.classList.toggle('manual-pass',select.value==='pass');item.append(select);list.append(item);}}
  async function beginAnalysis(source,name,byteLength){
-   const myScan=++scanId;currentFile=name;activeSource=source;if(!originalSource){originalSource=source;originalFileName=name;}manualStatus={};fileDetails={name,bytes:byteLength,runAt:new Date().toISOString(),analyzedElements:0,limited:false};
+   const myScan=++scanId;currentFile=name;manualStatus={};fileDetails={name,bytes:byteLength,runAt:new Date().toISOString(),analyzedElements:0,limited:false};
    $('status').classList.remove('error');$('status').textContent='Inspecting markup and embedded styles in a safe preview…';
    const base=inspect(source);staticFindings=base;fileDetails.analyzedElements=analyzedNodes;fileDetails.limited=maxTruncated;
    $('report').hidden=false;$('reportTitle').textContent='Accessibility audit results';
@@ -480,106 +462,23 @@
    probeState={rendered:false,wide:false,narrow:false,error:''};renderManual();renderCoverage();updateSummary();
    const visual=await probePreview(source);if(myScan!==scanId)return;
    staticFindings=[...base,...visual];fileDetails.preview=structuredClone(probeState);
-   renderManual();renderCoverage();updateSummary();buildRepairCandidates();
+   renderManual();renderCoverage();updateSummary();
    $('status').textContent='Analysis complete: '+staticFindings.length+' automated finding types ('+visual.length+' from rendered screening). Findings marked Potential need manual verification.';
    $('reportTitle').scrollIntoView({behavior:'smooth',block:'start'});
  }
- async function handleFile(file){if(!file)return;const lower=file.name.toLowerCase();if(!/\.html?$/.test(lower)){setError('Please choose a file ending in .html or .htm.');return;}if(file.size>8*1024*1024){setError('This file is larger than 8 MB. Export a smaller page or simplify the HTML for analysis.');return;}try{$('status').textContent='Reading and checking '+file.name+'…';const html=await file.text();originalSource=html;originalFileName=file.name;repairChangeHistory=[];beginAnalysis(html,file.name,file.size);}catch(e){setError('Unable to analyze the file: '+(e?.message||'unknown error'));}}
+ async function handleFile(file){if(!file)return;const lower=file.name.toLowerCase();if(!/\.html?$/.test(lower)){setError('Please choose a file ending in .html or .htm.');return;}if(file.size>8*1024*1024){setError('This file is larger than 8 MB. Export a smaller page or simplify the HTML for analysis.');return;}try{$('status').textContent='Reading and checking '+file.name+'…';const html=await file.text();beginAnalysis(html,file.name,file.size);}catch(e){setError('Unable to analyze the file: '+(e?.message||'unknown error'));}}
  function setError(msg){$('status').classList.add('error');$('status').textContent=msg;}
- function reportData(){return {tool:'Accessibility Audit & Repair Studio',version:'3.0',repairHistory:repairChangeHistory,standard:'WCAG 2.1 A/AA source checks, embedded-style safe preview, WCAG 2.2 advisory checks and manual review (not certification)',assets:assetInventory,preview:probeState,file:fileDetails,score:scoreFindings(getAllFindings()),sort:'nice → moderate → high → critical',findings:getAllFindings().sort((a,b)=>sevOrder[a.severity]-sevOrder[b.severity]||a.title.localeCompare(b.title)),manualReview:manualTests.map(t=>({...t,status:manualStatus[t.id]||'untested'})),limitations:['Not a WCAG compliance certification','Scripts are not executed','External stylesheets are not loaded; JavaScript in uploaded pages is never executed','Embedded/linked PDFs and other resources are not inspected','Computed styles are assessed only in script-disabled preview with external resources blocked; full keyboard, screen reader, zoom and rendered-state testing must be performed on the real page']};}
+ function reportData(){return {tool:'Accessibility Audit Studio',version:'2.0',standard:'WCAG 2.1 A/AA source checks, embedded-style safe preview, WCAG 2.2 advisory checks and manual review (not certification)',assets:assetInventory,preview:probeState,file:fileDetails,score:scoreFindings(getAllFindings()),sort:'nice → moderate → high → critical',findings:getAllFindings().sort((a,b)=>sevOrder[a.severity]-sevOrder[b.severity]||a.title.localeCompare(b.title)),manualReview:manualTests.map(t=>({...t,status:manualStatus[t.id]||'untested'})),limitations:['Not a WCAG compliance certification','Scripts are not executed','External stylesheets are not loaded; JavaScript in uploaded pages is never executed','Embedded/linked PDFs and other resources are not inspected','Computed styles are assessed only in script-disabled preview with external resources blocked; full keyboard, screen reader, zoom and rendered-state testing must be performed on the real page']};}
  function downloadFile(body,mime,suffix){const blob=new Blob([body],{type:mime});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=(currentFile.replace(/\.html?$/i,'').replace(/[^a-zA-Z0-9._-]/g,'_')||'page')+'-accessibility-audit.'+suffix;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
  function csvCell(value){return '"'+String(value??'').replace(/"/g,'""')+'"';}
  function exportCsv(){const rows=[['Severity','Finding','Area','Detection','Affected instances','Why it matters','Recommended correction','WCAG reference','Example selectors']];for(const f of reportData().findings)rows.push([sevLabels[f.severity],f.title,f.category,f.origin==='Manual'?'Manually confirmed':f.certainty,f.count,f.why,f.fix,f.wcag,f.elements.map(e=>e.selector).join(' | ')]);
    downloadFile('\ufeff'+rows.map(row=>row.map(csvCell).join(',')).join('\r\n'),'text/csv;charset=utf-8','csv');}
- $('chooseBtn').addEventListener('click',()=>$('fileInput').click());$('fileInput').addEventListener('change',e=>{const file=e.target.files[0];e.target.value='';handleFile(file);});$('sampleBtn').addEventListener('click',()=>{originalSource=sampleHtml();originalFileName='example-inaccessible-page.html';repairChangeHistory=[];beginAnalysis(originalSource,originalFileName,new Blob([originalSource]).size);});
+ $('chooseBtn').addEventListener('click',()=>$('fileInput').click());$('fileInput').addEventListener('change',e=>{const file=e.target.files[0];e.target.value='';handleFile(file);});$('sampleBtn').addEventListener('click',()=>beginAnalysis(sampleHtml(),'example-inaccessible-page.html',new Blob([sampleHtml()]).size));
  for(const event of ['dragenter','dragover'])$('dropZone').addEventListener(event,e=>{e.preventDefault();$('dropZone').classList.add('drag-over');});
  for(const event of ['dragleave','drop'])$('dropZone').addEventListener(event,e=>{e.preventDefault();$('dropZone').classList.remove('drag-over');});
  $('dropZone').addEventListener('drop',e=>handleFile(e.dataTransfer.files[0]));
  for(const id of ['searchIssues','filterSeverity','filterCategory','sortIssues'])$(id).addEventListener(id==='searchIssues'?'input':'change',showIssues);
  $('csvBtn').addEventListener('click',exportCsv);$('jsonBtn').addEventListener('click',()=>downloadFile(JSON.stringify(reportData(),null,2),'application/json;charset=utf-8','json'));$('printBtn').addEventListener('click',()=>window.print());
-
- // Repair Center. All patches target a reparsed copy of the uploaded HTML.
- function repairPath(el){let result=[];for(let n=el;n&&n.nodeType===1;n=n.parentElement){const tag=n.tagName.toLowerCase();if(tag==='html'){result.unshift('html');break;}const index=[...n.parentElement.children].indexOf(n)+1;result.unshift(tag+':nth-child('+index+')');}return result.join(' > ');}
- function candidateSet(source){const doc=new DOMParser().parseFromString(source,'text/html');const found=new Set(staticFindings.map(f=>f.key));const fixes=[];let next=0;
-  const push=(kind,title,detail,mode,el,proposed='',extra={})=>{const selector=el?repairPath(el):'';if(selector&&doc.querySelectorAll(selector).length!==1)return;fixes.push({id:'r'+(++next),kind,title,detail,mode,selector,proposed,checked:mode==='safe',...extra});};
-  if(found.has('zoom-block')){const vp=doc.querySelector('meta[name="viewport"]');if(vp)push('zoom','Remove zoom restrictions','Remove user-scalable=no and maximum-scale restrictions without changing other viewport parameters.','safe',vp);}
-  if(found.has('lang'))push('lang','Declare page language','Confirm or edit the page language (BCP 47 code).','assisted',doc.documentElement,'en');
-  if(found.has('title'))push('title','Add a meaningful page title','Enter the correct page title. An assumed title cannot be verified automatically.','assisted',null,(originalFileName||'Page').replace(/\.html?$/i,'').replace(/[_-]+/g,' '));
-  const missing=doc.querySelectorAll('img:not([alt]):not([aria-label]):not([aria-labelledby])');
-  for(const el of [...missing].slice(0,70)){const decorative=el.getAttribute('role')==='presentation'||el.getAttribute('role')==='none'||el.getAttribute('aria-hidden')==='true';push('alt',`Image without alt text: ${el.getAttribute('src')?.slice(0,45)||'inline image'}`,decorative?'Image is explicitly marked decorative; empty alt is appropriate when it contains no information.':'Write an accurate alternative. For a purely decorative image, select "Decorative (empty alt)".','assisted',el,el.getAttribute('title')||'',{decorative});}
-  for(const el of [...doc.querySelectorAll('button,[role="button"]')].slice(0,150))if(!named(el,doc))push('aria-name','Unnamed button','Supply a short, specific name that describes what the button does.','assisted',el,'');
-  for(const el of [...doc.querySelectorAll('input:not([type="hidden"]):not([type="submit"]):not([type="reset"]):not([type="button"]),textarea,select')].slice(0,150))if(!named(el,doc))push('aria-name','Unlabeled form control', 'Confirm a persistent, meaningful label. Using aria-label adds a programmatic name but does not replace the need for visible instructions when required.','assisted',el,el.getAttribute('placeholder')||'');
-  for(const el of [...doc.querySelectorAll('iframe:not([title])')].slice(0,50))push('frame-title','Untitled embedded frame','Enter a short title describing what the frame contains.','assisted',el,'');
-  for(const el of [...doc.querySelectorAll('a[href]')].slice(0,120))if(!named(el,doc))push('aria-name','Unnamed link','Supply an accurate name describing the link destination or purpose.','assisted',el,'');
-  for(const el of [...doc.querySelectorAll('area')].slice(0,120))if(!named(el,doc))push('alt','Unnamed image-map region','Describe what selecting this region does.','assisted',el,'');
-  for(const el of [...doc.querySelectorAll('svg[role="img"],[role="img"]')].slice(0,60))if(!named(el,doc))push('aria-name','Unlabeled graphic','Write a useful short name; detailed charts may additionally need a data table or text description.','assisted',el,'');
-  for(const el of [...doc.querySelectorAll('fieldset')].slice(0,40))if(!el.querySelector(':scope > legend')?.textContent?.trim())push('fieldset-legend','Add fieldset group legend','Name the group of related controls. Review before applying; an empty existing legend will be reused.','assisted',el,'');
-  for(const el of [...doc.querySelectorAll('table:not([role="presentation"]):not([role="none"])')].slice(0,40))if(el.querySelectorAll('tr').length>1&&!el.querySelector('th'))push('table-headers','Mark first row as column headers','Only select this if the first table row contains column headings. Will convert its cells to <th scope="col">; complex tables need more work.','assisted',el,'');
-  for(const el of [...doc.querySelectorAll('div[onclick],span[onclick]')].slice(0,40))if(!el.hasAttribute('tabindex')&&!el.closest('button,a[href]'))push('native-button','Convert click-only element to native button','Replaces this div/span with a button and preserves inline onclick and content. CSS layout or JavaScript assumptions may break; test all states in the running app.','assisted',el,'');
-  for(const el of [...doc.querySelectorAll('[aria-hidden="true"]')].slice(0,50)){if(el.matches('button,a[href],input:not([type="hidden"]),select,textarea')||el.querySelector('button,a[href],input:not([type="hidden"]),select,textarea'))push('unhide','Expose focusable content to assistive technology','Review whether aria-hidden was intentional. Removing it may expose content that should instead be genuinely disabled or hidden.','assisted',el,'');}
-  const main=doc.querySelector('main,[role="main"]');if(main&&!doc.querySelector('a[href^="#"]')?.getAttribute('href')?.includes(main.id||'__never__')&&!doc.querySelector('.skip-link')&&!doc.querySelector('[data-a11y-skip]'))push('skip','Add skip-to-main link','Add a keyboard-visible skip link targeting the existing main landmark.','safe',main);
-  if(found.has('outline-none'))push('focus-css','Add focus-visible fallback outline','Adds a high-contrast outline for keyboard focus. Existing focus treatments and dark backgrounds need checking.','assisted',null,'#155eae');
-  for(const f of staticFindings.filter(f=>f.key==='rendered-contrast').slice(0,1))for(const ex of f.elements.slice(0,12)){let el;try{el=doc.querySelector(ex.selector);}catch{}if(el){push('contrast','Propose text color override','Applies a strong dark foreground to this element. This is not guaranteed to improve contrast on dark or image backgrounds; inspect the new preview and retest all states.','assisted',el,'#172536');}}
-  return fixes.slice(0,160);
- }
- function buildRepairCandidates(){repairCandidates=candidateSet(activeSource);renderRepairCandidates();}
- function repairInputValue(c){return c.proposed||'';}
- function renderRepairCandidates(){const list=$('repairList');list.replaceChildren();$('repairCount').textContent=repairCandidates.length+' suggested repairs';
-  if(!repairCandidates.length){list.append(addEl('div','empty','No targeted code repairs were identified. The manual-review checklist is still necessary.'));}
-  for(const c of repairCandidates){const row=addEl('div','repair-item');const label=document.createElement('label');const cb=document.createElement('input');cb.type='checkbox';cb.checked=c.checked;cb.id='repair-'+c.id;cb.addEventListener('change',()=>{c.checked=cb.checked;refreshRepairPreview();});label.htmlFor=cb.id;label.append(cb);const title=document.createElement('span');title.textContent=c.title+'  ';const mode=addEl('span','repair-mode'+(c.mode==='assisted'?' assisted':''),c.mode==='safe'?'Low risk':'Needs approval');title.append(mode);label.append(title);row.append(label);row.append(addEl('p','',c.detail));
-   if(['lang','title','aria-name','frame-title','alt','contrast','focus-css','fieldset-legend'].includes(c.kind)){
-     const input=document.createElement('input');input.type='text';input.id='value-'+c.id;input.value=c.proposed||'';input.setAttribute('aria-label','Proposed value for '+c.title);input.placeholder=c.kind==='alt'?'Meaningful image description':c.kind==='contrast'?'e.g. #172536':'Enter proposed value';input.addEventListener('input',()=>{c.proposed=input.value;refreshRepairPreview();});row.append(input);
-     if(c.kind==='alt'&&!c.decorative){const help=addEl('p','repair-warning','To mark a truly decorative image, type exactly [decorative] in the field above. Never use a blank alt on an informative image.');row.append(help);}
-     if(c.kind==='alt'&&c.decorative){row.append(addEl('p','repair-warning','This image is explicitly marked decorative. Empty description will generate alt="".'));}
-   }
-   list.append(row);
-  }
-  refreshRepairPreview();
- }
- function patchSelected(){const doc=new DOMParser().parseFromString(activeSource,'text/html');const selected=repairCandidates.filter(x=>x.checked);const log=[],unapplied=[];
-  const structural=[];
-  for(const c of selected){const val=trimmed(c.proposed);if(['title','lang','alt','aria-name','frame-title','contrast','focus-css'].includes(c.kind)&&!val&&!(c.kind==='alt'&&c.decorative)){unapplied.push(c.title+': missing value');continue;}
-   if(c.kind==='skip'||c.kind==='title'||c.kind==='focus-css'){structural.push(c);continue;}
-   let el=null;try{el=doc.querySelector(c.selector);}catch{}if(!el){unapplied.push(c.title+': target no longer exists');continue;}
-   if(c.kind==='zoom'){
-    const parts=(el.getAttribute('content')||'').split(/[,;]/).map(x=>x.trim()).filter(x=>x&&!/^user-scalable\s*=\s*(no|0)$/i.test(x)&&!/^maximum-scale\s*=\s*1(?:\.0+)?$/i.test(x));el.setAttribute('content',parts.join(', '));
-   }else if(c.kind==='lang'){if(!/^[a-z]{2,3}(?:-[a-z0-9]{2,8})*$/i.test(val)){unapplied.push('Language must be a valid-looking language code');continue;}el.setAttribute('lang',val);
-   }else if(c.kind==='alt'){el.setAttribute('alt',c.decorative||val==='[decorative]'?'':val);
-   }else if(c.kind==='aria-name'){el.setAttribute('aria-label',val);
-   }else if(c.kind==='frame-title'){el.setAttribute('title',val);
-   }else if(c.kind==='unhide'){el.removeAttribute('aria-hidden');
-   }else if(c.kind==='fieldset-legend'){const text=val||'Related fields';let legend=el.querySelector(':scope > legend');if(!legend){legend=doc.createElement('legend');el.insertBefore(legend,el.firstChild);}legend.textContent=text;
-   }else if(c.kind==='table-headers'){const row=el.querySelector('tr');if(!row||!row.querySelector('td')){unapplied.push('No first-row cells found');continue;}for(const cell of [...row.children]){if(cell.tagName!=='TD')continue;const th=doc.createElement('th');for(const attr of [...cell.attributes])th.setAttribute(attr.name,attr.value);th.setAttribute('scope','col');while(cell.firstChild)th.append(cell.firstChild);cell.replaceWith(th);}
-   }else if(c.kind==='native-button'){const btn=doc.createElement('button');for(const attr of [...el.attributes])btn.setAttribute(attr.name,attr.value);btn.removeAttribute('tabindex');btn.removeAttribute('role');btn.type='button';while(el.firstChild)btn.append(el.firstChild);el.replaceWith(btn);
-
-   }else if(c.kind==='contrast'){if(!/^#[0-9a-f]{3}(?:[0-9a-f]{3})?$/i.test(val)){unapplied.push('Invalid contrast color '+val);continue;}el.style.setProperty('color',val,'important');
-   }else continue;
-   log.push(c.title);
-  }
-  for(const c of structural){const val=trimmed(c.proposed);
-   if(c.kind==='title'){let title=doc.querySelector('head > title');if(!title){title=doc.createElement('title');doc.head.append(title);}title.textContent=val;log.push(c.title);
-   }else if(c.kind==='focus-css'){if(!/^#[0-9a-f]{3}(?:[0-9a-f]{3})?$/i.test(val)){unapplied.push('Invalid focus outline color '+val);continue;}const style=doc.createElement('style');style.setAttribute('data-accessibility-repair','focus');style.textContent=':focus-visible{outline:3px solid '+val+' !important;outline-offset:3px !important;}';doc.head.append(style);log.push(c.title);
-   }else if(c.kind==='skip'){
-    let main=doc.querySelector('main,[role="main"]');if(!main){unapplied.push('Skip link: main landmark no longer exists');continue;}
-    let id=main.id;if(!id){id='a11y-main';let n=1;while(doc.getElementById(id))id='a11y-main-'+(++n);main.id=id;}if(!main.hasAttribute('tabindex'))main.setAttribute('tabindex','-1');
-    const a=doc.createElement('a');a.href='#'+id;a.className='a11y-repair-skip';a.setAttribute('data-a11y-skip','');a.textContent='Skip to main content';doc.body.insertBefore(a,doc.body.firstChild);
-    const style=doc.createElement('style');style.setAttribute('data-accessibility-repair','skip');style.textContent='.a11y-repair-skip{position:absolute;left:12px;top:-120px;z-index:2147483000;padding:12px 16px;background:#fff;color:#111;border:3px solid #155eae}.a11y-repair-skip:focus{top:12px}';doc.head.append(style);log.push(c.title);
-   }
-  }
-  return {html:'<!DOCTYPE html>\n'+doc.documentElement.outerHTML,log,unapplied};
- }
- function refreshRepairPreview(){const selected=repairCandidates.filter(x=>x.checked);const p=patchSelected();previewPatched=p.html;$('repairBefore').value=activeSource;$('repairAfter').value=selected.length?p.html:activeSource;const log=$('repairChangeLog');log.replaceChildren();for(const item of p.log)log.append(addEl('li','',item));
-  $('repairPreviewCount').textContent=p.log.length+' changes in preview';$('repairFeedback').textContent=(p.log.length?p.log.length+' change(s) ready for review.':'No valid repairs selected.')+(p.unapplied.length?' Not applied: '+p.unapplied.join('; ')+'.':'');
-  $('downloadPatchedBtn').disabled=!p.log.length||p.unapplied.length>0;$('reauditPatchedBtn').disabled=!p.log.length||p.unapplied.length>0;
- }
- function downloadContent(html,name){const blob=new Blob([html],{type:'text/html;charset=utf-8'});const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download=name;document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);}
- $('selectSafeBtn').addEventListener('click',()=>{repairCandidates.forEach(x=>x.checked=x.mode==='safe');renderRepairCandidates();});
- $('clearFixesBtn').addEventListener('click',()=>{repairCandidates.forEach(x=>x.checked=false);renderRepairCandidates();});
- $('downloadPatchedBtn').addEventListener('click',()=>{const p=patchSelected();if(!p.log.length||p.unapplied.length)return;downloadContent(p.html,currentFile.replace(/\.html?$/i,'')+'-repaired.html');});
- $('downloadOriginalBtn').addEventListener('click',()=>{if(originalSource)downloadContent(originalSource,originalFileName||'original.html');});
- $('reauditPatchedBtn').addEventListener('click',()=>{const p=patchSelected();if(!p.log.length||p.unapplied.length)return;repairChangeHistory.push({at:new Date().toISOString(),changes:p.log});beginAnalysis(p.html,currentFile.replace(/\.html?$/i,'')+'-repaired.html',new Blob([p.html]).size);});
- $('restoreOriginalBtn').addEventListener('click',()=>{if(!originalSource)return;repairChangeHistory=[];beginAnalysis(originalSource,originalFileName,new Blob([originalSource]).size);});
-
  $('resetManualBtn').addEventListener('click',()=>{manualStatus={};renderManual();updateSummary();});
 })();
 </script>
